@@ -8,10 +8,13 @@
     </h:head>
     <h:body>
         <h:form>
-            <h:commandLink value="Student list" action="StudentPage" />
+            <h:commandButton id="StudentPage" value="Student list" action="StudentPage">
+            </h:commandButton>
             <br/>
             <br/>
-            <h:commandLink value="Course List" action="CoursePage"/>
+            <h:commandButton id="CoursePage" value="Coruse list" >
+                <f:actionListener type="com.filipmavve.listeners.NavigationListener"/>
+            </h:commandButton>
         </h:form>
     </h:body>
 </html>
