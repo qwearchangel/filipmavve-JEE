@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:head>
+        <title>Register Student</title>
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="css" name="style.css"  />
+        <f:loadBundle basename="com.filipmavve.messages.MyMessages" var="msg"/>
+        <h:form>
+            <h:outputText value="#{msg.student_firstName}"/> <h:inputText required="true"
+                                                                          id="studentFirstName" value="#{studentBean.firstName}"/>
+            <br/>
+            Student last name: <h:inputText required="true" id="studentLastName"
+                                            value="#{studentBean.lastName}"/>
+            <br/>
+            Student IdNumber: <h:inputText required="true" id="studentId"
+                                           value="#{studentBean.idNumber}"/>
+            <br/>
+            Student email: <h:inputText required="true" id="studentEmail"
+                                        value="#{studentBean.email}">
+                <f:validator validatorId="emailValidator" />
+            </h:inputText>
+            <h:message for="studentEmail" style="color:red" />
+
+            <br/>
+            Student course: <h:selectOneMenu id="studentCorse" value="#{studentBean.course}"  >
+                <f:selectItem itemLabel="Select Course"  noSelectionOption="true"/>
+                <f:selectItems value="#{studentBean.courses}" var="selectedCourse"
+                               itemLabel="#{selectedCourse.courseName}" itemValue="#{selectedCourse.courseName}" />
+            </h:selectOneMenu>
+            <br/>
+            <h:commandButton id="studentAdd" value="Add Student"
+                             action="#{studentBean.addStudent()}" />
+        </h:form>
+
+
+        <br/>
+        <br/>
+        <h:form>
+            <h:dataTable id="studentTable" value="#{studentBean.studentsList}" var="student"
+                         styleClass="order-table"
+                         headerClass="order-table-header"
+                         rowClasses="order-table-odd-row,order-table-even-row"
+                         columnClasses="order-table-row,order-table-row,order-table-row,order-table-row,order-table-row,order-table-row">
+                <f:facet name="header">
+                    <h:outputText value="Logged Students" />
+                </f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="First Name"/>
+                    </f:facet>
+                    <h:outputText value="#{student.firstName}" rendered="#{not student.editable}" />
+                    <h:inputText value="#{student.firstName}" rendered="#{student.editable}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Last Name"/>
+                    </f:facet>
+                    <h:outputText value="#{student.lastName}" rendered="#{not student.editable}"/>
+                    <h:inputText value="#{student.lastName}" rendered="#{ student.editable}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Course"/>
+                    </f:facet>
+                    <h:outputText value="#{student.course}" rendered="#{not student.editable}" />
+                    <h:inputText value="#{student.course}" rendered="#{ student.editable}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Email"/>
+                    </f:facet>
+                    <h:outputText value="#{student.email}" rendered="#{not student.editable}"/>
+                    <h:inputText value="#{student.email}" rendered="#{ student.editable}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Id-Number"/>
+                    </f:facet>
+                    <h:outputText value="#{student.idNumber}" rendered="#{not student.editable}" />
+                    <h:inputText value="#{student.idNumber}" rendered="#{student.editable}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Action"/>
+                    </f:facet>
+                    <h:commandLink value="Edit" action="#{studentBean.editAction(student)}"
+                                   rendered="#{not student.editable}"/>
+                    <h:commandLink value="Save" action="#{studentBean.saveAction(student)}"
+                                   rendered="#{student.editable}" class="studentSave"/>
+                    <h:commandLink value="Delete" action="#{studentBean.deleteAction(student)}"
+                                   rendered="#{student.editable}" class="studentDelete"/>
+                </h:column>
+            </h:dataTable>
+            <h:commandButton value="Save all changes" action="#{studentBean.saveAllAction()}"/>
+            <br/>
+            <h:commandButton value="Back" action="Home"/>
+        </h:form>
+    </h:body>
+</html>
