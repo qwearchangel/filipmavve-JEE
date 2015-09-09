@@ -10,38 +10,51 @@
         <title>Register Student</title>
     </h:head>
     <h:body>
+
         <h:outputStylesheet library="css" name="style.css"  />
         <f:loadBundle basename="com.filipmavve.messages.MyMessages" var="msg"/>
-        <h:form>
-            <h:outputText value="#{msg.student_firstName}"/> <p:inputText required="true"
-                                                                          id="studentFirstName" value="#{studentBean.firstName}"/>
-            <br/>
-            Student last name: <p:inputText required="true" id="studentLastName"
-                                            value="#{studentBean.lastName}"/>
-            <br/>
-            Student IdNumber: <p:inputText required="true" id="studentId"
-                                           value="#{studentBean.idNumber}"/>
-            <br/>
-            Student email: <p:inputText required="true" id="studentEmail"
-                                        value="#{studentBean.email}">
-                <f:validator validatorId="emailValidator" />
-                <p:ajax event="keyup" update="emailError" />
-            </p:inputText>
-            <h:message id="emailError" for="studentEmail" style="color:red" />
+        <h:form id="studentForm">
+            <h:panelGrid columns="3" cellpadding="5">
+                <h:outputText id="msgFirstName" value="#{msg.student_firstName}"/>
+                <p:inputText id="studentFirstName" value="#{studentBean.firstName}">
+                             <f:validator validatorId="nameValidator" />
+                             <p:ajax event="keyup" update="firstNameError"/>
+                </p:inputText>
+                <h:message id="firstNameError" for="studentFirstName" style="color:red" />
 
-            <br/>
-            Student course: <h:selectOneMenu id="studentCorse" value="#{studentBean.course}"  >
-                <f:selectItem itemLabel="Select Course"  noSelectionOption="true"/>
-                <f:selectItems value="#{studentBean.courses}" var="selectedCourse"
-                               itemLabel="#{selectedCourse.courseName}" itemValue="#{selectedCourse.courseName}" />
-            </h:selectOneMenu>
+                Student last name: 
+                <p:inputText required="true" id="studentLastName"
+                             value="#{studentBean.lastName}"/>
+                <h:message id="lastNameError" for="studentLastName" style="color:red" />
+
+
+                Student IdNumber: 
+                <p:inputText required="true" id="studentId"
+                             value="#{studentBean.idNumber}"/>
+                <h:message id="idError" for="studentId" style="color:red" />
+
+                Student email: 
+                <p:inputText required="true" id="studentEmail"
+                             value="#{studentBean.email}">
+                    <f:validator validatorId="emailValidator" />
+                    <p:ajax event="keyup" update="emailError" />
+                </p:inputText>
+                <h:message id="emailError" for="studentEmail" style="color:red" />
+
+                <p:outputLabel for="studentCorse" value="Course list"/>
+                <p:selectOneMenu id="studentCorse" value="#{studentBean.course}"  >
+                    <f:selectItem itemLabel="Select Course"  noSelectionOption="true"/>
+                    <f:selectItems value="#{studentBean.courses}" var="selectedCourse"
+                                   itemLabel="#{selectedCourse.courseName}" itemValue="#{selectedCourse.courseName}" />
+                </p:selectOneMenu>
+            </h:panelGrid>
             <br/>
             <p:commandButton id="studentAdd" value="Add Student" update="studentTable"
                              action="#{studentBean.addStudent()}" />
-        <br/>
-        <br/>   
+            <br/>
+            <br/>   
             <p:dataTable id="studentTable" value="#{studentBean.studentsList}" var="student"
-                         styleClass="order-table">
+                         styleClass="order-table" paginator="true" rows="20">
                 <!--headerClass="order-table-header"
                 rowClasses="order-table-odd-row,order-table-even-row"
                 columnClasses="order-table-row,order-table-row,order-table-row,order-table-row,order-table-row,order-table-row"-->
