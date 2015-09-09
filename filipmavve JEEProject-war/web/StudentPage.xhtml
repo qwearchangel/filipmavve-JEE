@@ -13,20 +13,20 @@
         <h:outputStylesheet library="css" name="style.css"  />
         <f:loadBundle basename="com.filipmavve.messages.MyMessages" var="msg"/>
         <h:form>
-            <h:outputText value="#{msg.student_firstName}"/> <h:inputText required="true"
+            <h:outputText value="#{msg.student_firstName}"/> <p:inputText required="true"
                                                                           id="studentFirstName" value="#{studentBean.firstName}"/>
             <br/>
-            Student last name: <h:inputText required="true" id="studentLastName"
+            Student last name: <p:inputText required="true" id="studentLastName"
                                             value="#{studentBean.lastName}"/>
             <br/>
-            Student IdNumber: <h:inputText required="true" id="studentId"
+            Student IdNumber: <p:inputText required="true" id="studentId"
                                            value="#{studentBean.idNumber}"/>
             <br/>
-            Student email: <h:inputText required="true" id="studentEmail"
+            Student email: <p:inputText required="true" id="studentEmail"
                                         value="#{studentBean.email}">
                 <f:validator validatorId="emailValidator" />
                 <p:ajax event="keyup" update="emailError" />
-            </h:inputText>
+            </p:inputText>
             <h:message id="emailError" for="studentEmail" style="color:red" />
 
             <br/>
@@ -36,14 +36,10 @@
                                itemLabel="#{selectedCourse.courseName}" itemValue="#{selectedCourse.courseName}" />
             </h:selectOneMenu>
             <br/>
-            <h:commandButton id="studentAdd" value="Add Student"
+            <p:commandButton id="studentAdd" value="Add Student" update="studentTable"
                              action="#{studentBean.addStudent()}" />
-        </h:form>
-
-
         <br/>
         <br/>   
-        <h:form>
             <p:dataTable id="studentTable" value="#{studentBean.studentsList}" var="student"
                          styleClass="order-table">
                 <!--headerClass="order-table-header"
