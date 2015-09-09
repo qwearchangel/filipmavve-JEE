@@ -2,7 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <title>Register Student</title>
@@ -41,61 +43,43 @@
         <br/>
         <br/>
         <h:form>
-            <h:dataTable id="studentTable" value="#{studentBean.studentsList}" var="student"
-                         styleClass="order-table"
-                         headerClass="order-table-header"
-                         rowClasses="order-table-odd-row,order-table-even-row"
-                         columnClasses="order-table-row,order-table-row,order-table-row,order-table-row,order-table-row,order-table-row">
+            <p:dataTable id="studentTable" value="#{studentBean.studentsList}" var="student"
+                         styleClass="order-table">
+                <!--headerClass="order-table-header"
+                rowClasses="order-table-odd-row,order-table-even-row"
+                columnClasses="order-table-row,order-table-row,order-table-row,order-table-row,order-table-row,order-table-row"-->
                 <f:facet name="header">
                     <h:outputText value="Logged Students" />
                 </f:facet>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="First Name"/>
-                    </f:facet>
+                <p:column headerText="First Name">
                     <h:outputText value="#{student.firstName}" rendered="#{not student.editable}" />
                     <h:inputText value="#{student.firstName}" rendered="#{student.editable}" />
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Last Name"/>
-                    </f:facet>
+                </p:column>
+                <p:column headerText="Last Name">
                     <h:outputText value="#{student.lastName}" rendered="#{not student.editable}"/>
                     <h:inputText value="#{student.lastName}" rendered="#{ student.editable}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Course"/>
-                    </f:facet>
+                </p:column>
+                <p:column headerText="Course">
                     <h:outputText value="#{student.course}" rendered="#{not student.editable}" />
                     <h:inputText value="#{student.course}" rendered="#{ student.editable}" />
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Email"/>
-                    </f:facet>
+                </p:column>
+                <p:column headerText="Email">
                     <h:outputText value="#{student.email}" rendered="#{not student.editable}"/>
                     <h:inputText value="#{student.email}" rendered="#{ student.editable}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Id-Number"/>
-                    </f:facet>
+                </p:column>
+                <p:column headerText="Id Number">
                     <h:outputText value="#{student.idNumber}" rendered="#{not student.editable}" />
                     <h:inputText value="#{student.idNumber}" rendered="#{student.editable}" />
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Action"/>
-                    </f:facet>
+                </p:column>
+                <p:column headerText="Action">
                     <h:commandLink value="Edit" action="#{studentBean.editAction(student)}"
                                    rendered="#{not student.editable}"/>
                     <h:commandLink value="Save" action="#{studentBean.saveAction(student)}"
                                    rendered="#{student.editable}" class="studentSave"/>
                     <h:commandLink value="Delete" action="#{studentBean.deleteAction(student)}"
                                    rendered="#{student.editable}" class="studentDelete"/>
-                </h:column>
-            </h:dataTable>
+                </p:column>
+            </p:dataTable>
             <h:commandButton value="Save all changes" action="#{studentBean.saveAllAction()}"/>
             <br/>
             <h:commandButton value="Back" action="Home"/>
