@@ -25,8 +25,9 @@
             Student email: <h:inputText required="true" id="studentEmail"
                                         value="#{studentBean.email}">
                 <f:validator validatorId="emailValidator" />
+                <p:ajax event="keyup" update="emailError" />
             </h:inputText>
-            <h:message for="studentEmail" style="color:red" />
+            <h:message id="emailError" for="studentEmail" style="color:red" />
 
             <br/>
             Student course: <h:selectOneMenu id="studentCorse" value="#{studentBean.course}"  >
@@ -41,7 +42,7 @@
 
 
         <br/>
-        <br/>
+        <br/>   
         <h:form>
             <p:dataTable id="studentTable" value="#{studentBean.studentsList}" var="student"
                          styleClass="order-table">
