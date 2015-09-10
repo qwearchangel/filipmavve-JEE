@@ -5,7 +5,7 @@
  */
 package com.filipmavve.beans;
 
-import com.filipmavve.model.Course;
+import com.filipmavve.domain.Course;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;

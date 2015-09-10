@@ -5,8 +5,8 @@
  */
 package com.filipmavve.beans;
 
-import com.filipmavve.model.Course;
-import com.filipmavve.model.Student;
+import com.filipmavve.domain.Course;
+import com.filipmavve.domain.Student;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;

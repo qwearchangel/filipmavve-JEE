@@ -5,7 +5,7 @@
  */
 package com.filipmavve.beans;
 
-import com.filipmavve.model.Login;
+import com.filipmavve.domain.Login;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

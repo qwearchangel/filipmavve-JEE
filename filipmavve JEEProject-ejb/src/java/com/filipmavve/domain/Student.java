@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.filipmavve.model;
+package com.filipmavve.domain;
 
 import org.hibernate.validator.constraints.Email;
 
