@@ -24,6 +24,7 @@ public class StudentBean {
     private List<Student> students = new ArrayList<>();
     @ManagedProperty(value = "#{courseBean.courses}")
     private List<Course> courses = new ArrayList<>();
+    private Student student;
     String firstName, lastName, course;//student 
     String email;
     long idNumber;
@@ -38,16 +39,9 @@ public class StudentBean {
         return students;
     }
 
-    public String addStudent() {
-        Student student = new Student(firstName, lastName, course, idNumber, email);
-        students.add(student);
-
-        firstName = null;
-        lastName = null;
-        course = null;
-        email = null;
-        idNumber = 0L;
-        return null;
+    public void addStudent() {
+        Student newStudent = new Student(firstName, lastName, course, idNumber, email);
+        students.add(newStudent);
     }
 
     public String deleteAction(Student student) {
@@ -62,14 +56,22 @@ public class StudentBean {
 
     public String saveAllAction() {
 
-        for (Student student : students) {
-            student.setEditable(false);
+        for (Student saveStudent : students) {
+            saveStudent.setEditable(false);
         }
         return null;
     }
 
     public String editAction(Student student) {
+        saveAllAction();
+        this.student = student;
         student.setEditable(true);
+        return null;
+    }
+    
+    public String cancelAction(Student student) {
+        student = this.student;
+        student.setEditable(false);
         return null;
     }
 

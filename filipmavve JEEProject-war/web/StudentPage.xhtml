@@ -23,18 +23,18 @@
                 <h:message id="firstNameError" for="studentFirstName" style="color:red" />
 
                 Student last name: 
-                <p:inputText required="true" id="studentLastName"
+                <p:inputText id="studentLastName"
                              value="#{studentBean.lastName}"/>
                 <h:message id="lastNameError" for="studentLastName" style="color:red" />
 
 
                 Student IdNumber: 
-                <p:inputText required="true" id="studentId"
+                <p:inputText id="studentId"
                              value="#{studentBean.idNumber}"/>
                 <h:message id="idError" for="studentId" style="color:red" />
 
                 Student email: 
-                <p:inputText required="true" id="studentEmail"
+                <p:inputText id="studentEmail"
                              value="#{studentBean.email}">
                     <f:validator validatorId="emailValidator" />
                     <p:ajax event="keyup" update="emailError" />
@@ -83,11 +83,13 @@
                 </p:column>
                 <p:column headerText="Action">
                     <h:commandLink value="Edit" action="#{studentBean.editAction(student)}"
-                                   rendered="#{not student.editable}"/>
+                                   rendered="#{not student.editable}" />
                     <h:commandLink value="Save" action="#{studentBean.saveAction(student)}"
-                                   rendered="#{student.editable}" class="studentSave"/>
+                                   rendered="#{student.editable}" class="studentSave" />
+                    <h:commandLink value="Cancel" action="#{studentBean.cancelAction(student)}"
+                                   rendered="#{student.editable}" />
                     <h:commandLink value="Delete" action="#{studentBean.deleteAction(student)}"
-                                   rendered="#{student.editable}" class="studentDelete"/>
+                                   rendered="#{not student.editable}" class="studentDelete" />
                 </p:column>
             </p:dataTable>
             <h:commandButton value="Save all changes" action="#{studentBean.saveAllAction()}"/>
