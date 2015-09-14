@@ -5,14 +5,35 @@
  */
 package com.filipmavve.services;
 
-import javax.ejb.Local;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author Filip
  */
+@Stateless
+public class SuperInterface implements SuperInterfaceLocal {
 
-@Local
-public interface SuperInterface extends CourseSessionLocal,LoginSessionLocal,StudentSessionLocal {
-    
+      @EJB
+      CourseSessionLocal courseSession;
+      @EJB
+      StudentSessionLocal studentSession;
+      @EJB
+      LoginSessionLocal loginSession;
+
+    @Override
+    public CourseSessionLocal getCourseSession() {
+        return courseSession;
+    }
+
+    @Override
+    public LoginSessionLocal getLoginSession() {
+        return loginSession;
+    }
+
+    @Override
+    public StudentSessionLocal getStudentSession() {
+        return studentSession;
+    }
 }

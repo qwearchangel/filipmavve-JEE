@@ -6,8 +6,10 @@
 package com.filipmavve.beans;
 
 import com.filipmavve.domain.Course;
+import com.filipmavve.services.CourseSessionLocal;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -19,6 +21,9 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class CourseBean {
 
+    @EJB
+    CourseSessionLocal courseSession;
+    
     private int courseId;
     private String courseName;
     private int points;
@@ -28,13 +33,14 @@ public class CourseBean {
     private int maxStudents;
     private String info;
     private boolean editable;
-    public List<Course> courses = new ArrayList<>();
 
     public CourseBean() {
-        courses.add(new Course(1, "abc", 10, "beginners", "Morning", "Mrs. Jellybottom", 16, "A beginner class for reading and writing."));
-        courses.add(new Course(2, "Java", 100, "Advanced", "All day", "Mr. BigTheeth", 30, "A Java programming class for those that want to know more."));
     }
-
+    
+    public Iterable getCourses() {
+        return courseSession.getAllCourses();
+    }
+    
     public String editAction(Course course) {
         course.setEditable(true);
         return null;
@@ -46,31 +52,15 @@ public class CourseBean {
     }
 
     public String saveAllAction() {
-        for (Course course : courses) {
-            course.setEditable(false);
-        }
         return null;
     }
     
     public String deleteAction(Course course) {
-        courses.remove(course);
         return null;
     }
 
-    public String addCourse() {
-        Course course = new Course(courseId, courseName, points, level, period, teacher, maxStudents, info);
-        courses.add(course);
-
-        courseId = 0;
-        courseName = null;
-        points = 0;
-        level = null;
-        period = null;
-        teacher = null;
-        maxStudents = 0;
-        info = null;
-
-        return null;
+    public void addCourse() {
+        
     }
 
     public int getCourseId() {
@@ -143,13 +133,5 @@ public class CourseBean {
 
     public void setEditable(boolean editable) {
         this.editable = editable;
-    }
-
-    public List<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
     }
 }

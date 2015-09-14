@@ -15,6 +15,6 @@ import javax.ejb.Local;
 @Local
 public interface LoginSessionLocal {
 
-    void checkLogin(Login Login);
+    public String validate(String userName, String password);
     
 }

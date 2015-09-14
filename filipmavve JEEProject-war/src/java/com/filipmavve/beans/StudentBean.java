@@ -5,12 +5,11 @@
  */
 package com.filipmavve.beans;
 
-import com.filipmavve.domain.Course;
 import com.filipmavve.domain.Student;
-import java.util.ArrayList;
+import com.filipmavve.services.SuperInterfaceLocal;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 /**
@@ -21,57 +20,52 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class StudentBean {
 
-    private List<Student> students = new ArrayList<>();
-    @ManagedProperty(value = "#{courseBean.courses}")
-    private List<Course> courses = new ArrayList<>();
-    private Student student;
-    String firstName, lastName, course;//student 
+    @EJB
+    SuperInterfaceLocal superInterface;
+
+    String firstName, lastName, course;
     String email;
     long idNumber;
     boolean editable;
 
     public StudentBean() {
-        students.add(new Student("Bob", "Bobsson", "abc", 8705021456L, "bobsson@gmail.com"));
-        students.add(new Student("Torkel", "Börjesson", "Java for beginners", 8906048531L, "Torkel@gmail.com"));
     }
-
+    
+    public Iterable getCourses() {
+        return superInterface.getCourseSession().getAllCourses();
+    }
+    
     public List<Student> getStudentsList() {
-        return students;
+        return superInterface.getStudentSession().getAllStudents();
     }
 
     public void addStudent() {
-        Student newStudent = new Student(firstName, lastName, course, idNumber, email);
-        students.add(newStudent);
+        superInterface.getStudentSession().addStudent(firstName, lastName, course, idNumber, email);
     }
 
-    public String deleteAction(Student student) {
-        students.remove(student);
-        return null;
+    public void deleteAction(Student student) {
+        superInterface.getStudentSession().removeStudent(student);
     }
 
-    public String saveAction(Student student) {
-        student.setEditable(false);
-        return null;
+    public void saveAction(Student student) {
+        firstName = student.getFirstName();
+        lastName = student.getLastName();
+        course = student.getEmail();
+        email = student.getEmail();
+        
+        superInterface.getStudentSession().saveStudent(student, firstName, lastName, course, email);
     }
 
     public String saveAllAction() {
 
-        for (Student saveStudent : students) {
-            saveStudent.setEditable(false);
-        }
         return null;
     }
 
-    public String editAction(Student student) {
-        saveAllAction();
-        this.student = student;
-        student.setEditable(true);
-        return null;
+    public void editAction(Student student) {
+        superInterface.getStudentSession().setEdit(student);
     }
-    
+
     public String cancelAction(Student student) {
-        student = this.student;
-        student.setEditable(false);
         return null;
     }
 
@@ -121,21 +115,5 @@ public class StudentBean {
 
     public void setEditable(boolean editable) {
         this.editable = editable;
-    }
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
-
-    public List<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
     }
 }

@@ -6,6 +6,7 @@
 package com.filipmavve.services;
 
 import com.filipmavve.domain.Student;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -15,10 +16,14 @@ import javax.ejb.Local;
 @Local
 public interface StudentSessionLocal {
 
-    void addStudent(Student Student);
+    void addStudent(String firstName, String lastName, String course, Long idNumber, String email);
 
-    void removeStudent(Student Student);
+    void removeStudent(Student student);
 
-    void editStudent(Student Student);
+    void setEdit(Student student);
+    
+    List<Student> getAllStudents();
+    
+    void saveStudent(Student student, String firstName, String lastName, String course, String email);
     
 }
