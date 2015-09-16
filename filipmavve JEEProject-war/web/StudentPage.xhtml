@@ -85,11 +85,11 @@
                     <p:commandLink id="editStudent" value="Edit" action="#{studentBean.editAction(student)}"
                                    rendered="#{not student.editable}" update=":studentData:studentTable"/>
                     <p:commandLink id="deleteStudent" value="Delete" action="#{studentBean.deleteAction(student)}"
-                                   rendered="#{not student.editable}" class="studentDelete" update=":studentData:studentTable"/>
+                                   rendered="#{not student.editable}" class="actionButtons" update=":studentData:studentTable"/>
                     <p:commandLink id="saveStudent" value="Save" action="#{studentBean.saveAction(student)}"
-                                   rendered="#{student.editable}" update=":studentData:studentTable"/>
-                    <p:commandLink id="cancelStudent" value="Cancel" action="#{studentBean.cancelAction(student)}"
                                    rendered="#{student.editable}"  update=":studentData:studentTable"/>
+                    <p:commandLink id="cancelStudent" value="Cancel" action="#{studentBean.cancelAction(student)}"
+                                   rendered="#{student.editable}" class="actionButtons" update=":studentData:studentTable"/>
 
                 </p:column>
             </p:dataTable>
