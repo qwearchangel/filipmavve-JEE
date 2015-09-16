@@ -47,10 +47,9 @@ public class StudentSession implements StudentSessionLocal {
     }
 
     @Override
-    public void saveStudent(Student student, String firstName, String lastName, String course, String email) {
-        students.remove(student);
+    public void saveStudent(Student student) {
         Student updateStudent = new Student(student.getFirstName(), student.getLastName(), student.getCourse(), student.getIdNumber(), student.getEmail());
-        
+        students.remove(student);
         updateStudent.setEditable(false);
         students.add(updateStudent);
     }

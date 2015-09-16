@@ -17,8 +17,8 @@
             <h:panelGrid columns="3" cellpadding="5">
                 <h:outputText id="msgFirstName" value="#{msg.student_firstName}"/>
                 <p:inputText id="studentFirstName" value="#{studentBean.firstName}">
-                             <f:validator validatorId="nameValidator" />
-                             <p:ajax event="keyup" update="firstNameError"/>
+                    <f:validator validatorId="nameValidator" />
+                    <p:ajax event="keyup" update="firstNameError"/>
                 </p:inputText>
                 <h:message id="firstNameError" for="studentFirstName" style="color:red" />
 
@@ -49,50 +49,52 @@
                 </p:selectOneMenu>
             </h:panelGrid>
             <br/>
-            <p:commandButton id="studentAdd" value="Add Student" update="studentTable"
+            <p:commandButton id="studentAdd" value="Add Student" update=":studentData:studentTable"
                              action="#{studentBean.addStudent()}" />
-            <br/>
-            <br/>   
+        </h:form>
+        <br/>
+        <br/>   
+        <h:form id="studentData">
             <p:dataTable id="studentTable" value="#{studentBean.studentsList}" var="student"
                          styleClass="order-table" paginator="true" rows="20">
-                <!--headerClass="order-table-header"
-                rowClasses="order-table-odd-row,order-table-even-row"
-                columnClasses="order-table-row,order-table-row,order-table-row,order-table-row,order-table-row,order-table-row"-->
                 <f:facet name="header">
                     <h:outputText value="Logged Students" />
                 </f:facet>
                 <p:column headerText="First Name">
                     <h:outputText value="#{student.firstName}" rendered="#{not student.editable}" />
-                    <h:inputText value="#{student.firstName}" rendered="#{student.editable}" />
+                    <h:inputText id="firstName" value="#{student.firstName}" rendered="#{student.editable}" />
                 </p:column>
                 <p:column headerText="Last Name">
                     <h:outputText value="#{student.lastName}" rendered="#{not student.editable}"/>
-                    <p:inputText value="#{student.lastName}" rendered="#{ student.editable}"/>
+                    <p:inputText id="lastName" value="#{student.lastName}" rendered="#{student.editable}"/>
                 </p:column>
                 <p:column headerText="Course">
                     <h:outputText value="#{student.course}" rendered="#{not student.editable}" />
-                    <p:inputText value="#{student.course}" rendered="#{ student.editable}" />
+                    <p:inputText id="course" value="#{student.course}" rendered="#{student.editable}" />
                 </p:column>
                 <p:column headerText="Email">
                     <h:outputText value="#{student.email}" rendered="#{not student.editable}"/>
-                    <p:inputText value="#{student.email}" rendered="#{ student.editable}"/>
+                    <p:inputText id="email" value="#{student.email}" rendered="#{student.editable}"/>
                 </p:column>
                 <p:column headerText="Id Number">
                     <h:outputText value="#{student.idNumber}" rendered="#{not student.editable}" />
                     <p:inputText value="#{student.idNumber}"  rendered="#{student.editable}" />
                 </p:column>
                 <p:column headerText="Action">
-                    <p:commandLink value="Edit" action="#{studentBean.editAction(student)}"
-                                   rendered="#{not student.editable}" immediate="true" update="studentTable"/>
-                    <p:commandLink value="Save" action="#{studentBean.saveAction(student)}"
-                                   rendered="#{student.editable}" class="studentSave" immediate="true" update="studentTable"/>
-                    <p:commandLink value="Cancel" action="#{studentBean.cancelAction(student)}"
-                                   rendered="#{student.editable}" immediate="true" update="studentTable"/>
-                    <p:commandLink value="Delete" action="#{studentBean.deleteAction(student)}"
-                                   rendered="#{not student.editable}" class="studentDelete" immediate="true"
-                                   update="studentTable"/>
+
+                    <p:commandLink id="editStudent" value="Edit" action="#{studentBean.editAction(student)}"
+                                   rendered="#{not student.editable}" update=":studentData:studentTable"/>
+                    <p:commandLink id="deleteStudent" value="Delete" action="#{studentBean.deleteAction(student)}"
+                                   rendered="#{not student.editable}" class="studentDelete" update=":studentData:studentTable"/>
+                    <p:commandLink id="saveStudent" value="Save" action="#{studentBean.saveAction(student)}"
+                                   rendered="#{student.editable}" update=":studentData:studentTable"/>
+                    <p:commandLink id="cancelStudent" value="Cancel" action="#{studentBean.cancelAction(student)}"
+                                   rendered="#{student.editable}"  update=":studentData:studentTable"/>
+
                 </p:column>
             </p:dataTable>
+        </h:form>
+        <h:form>
             <h:commandButton value="Save all changes" action="#{studentBean.saveAllAction()}"/>
             <br/>
             <h:commandButton value="Back" action="Home"/>

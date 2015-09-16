@@ -10,14 +10,14 @@ import com.filipmavve.services.SuperInterfaceLocal;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author Filip
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class StudentBean {
 
     @EJB
@@ -48,12 +48,7 @@ public class StudentBean {
     }
 
     public void saveAction(Student student) {
-        firstName = student.getFirstName();
-        lastName = student.getLastName();
-        course = student.getEmail();
-        email = student.getEmail();
-        
-        superInterface.getStudentSession().saveStudent(student, firstName, lastName, course, email);
+        superInterface.getStudentSession().saveStudent(student);
     }
 
     public String saveAllAction() {
@@ -68,7 +63,7 @@ public class StudentBean {
     public String cancelAction(Student student) {
         return null;
     }
-
+    
     public String getFirstName() {
         return firstName;
     }
@@ -85,20 +80,12 @@ public class StudentBean {
         this.lastName = lastName;
     }
 
-    public void setCourse(String course) {
-        this.course = course;
-    }
-
     public String getCourse() {
         return course;
     }
 
-    public long getIdNumber() {
-        return idNumber;
-    }
-
-    public void setIdNumber(long idNumber) {
-        this.idNumber = idNumber;
+    public void setCourse(String course) {
+        this.course = course;
     }
 
     public String getEmail() {
@@ -107,6 +94,14 @@ public class StudentBean {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public long getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(long idNumber) {
+        this.idNumber = idNumber;
     }
 
     public boolean isEditable() {

@@ -24,6 +24,6 @@ public interface StudentSessionLocal {
     
     List<Student> getAllStudents();
     
-    void saveStudent(Student student, String firstName, String lastName, String course, String email);
+    void saveStudent(Student student);
     
 }

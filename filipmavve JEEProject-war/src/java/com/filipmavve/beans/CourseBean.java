@@ -7,18 +7,16 @@ package com.filipmavve.beans;
 
 import com.filipmavve.domain.Course;
 import com.filipmavve.services.CourseSessionLocal;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author Filip
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class CourseBean {
 
     @EJB
