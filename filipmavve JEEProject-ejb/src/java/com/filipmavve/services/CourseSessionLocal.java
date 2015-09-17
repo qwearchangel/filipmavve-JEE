@@ -21,6 +21,8 @@ public interface CourseSessionLocal {
     public void removeCourse(Course course);
 
     public void editCourse(Course course);
+    
+    public void saveCourse(Course course);
 
     public List<Course> getAllCourses();
 }

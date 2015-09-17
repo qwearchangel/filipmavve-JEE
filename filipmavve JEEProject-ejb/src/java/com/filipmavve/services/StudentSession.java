@@ -18,6 +18,7 @@ import javax.ejb.Stateless;
 public class StudentSession implements StudentSessionLocal {
 
     private List<Student> students;
+    private Student oldStudent;
 
     public StudentSession() {
         students = new ArrayList<>();
@@ -32,7 +33,15 @@ public class StudentSession implements StudentSessionLocal {
 
     @Override
     public void setEdit(Student student) {
-        students.get(students.indexOf(student)).setEditable(true);
+
+        if (!student.isEditable()) {
+            oldStudent = new Student(student);
+            students.get(students.indexOf(student)).setEditable(true);
+        } else {
+            students.remove(student);
+            oldStudent.setEditable(false);
+            students.add(oldStudent);
+        }
     }
 
     @Override
@@ -54,5 +63,4 @@ public class StudentSession implements StudentSessionLocal {
         students.add(updateStudent);
     }
 
-   
 }

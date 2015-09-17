@@ -7,7 +7,6 @@ package com.filipmavve.domain;
 
 import org.hibernate.validator.constraints.Email;
 
-
 /**
  *
  * @author Filip
@@ -27,6 +26,18 @@ public class Student {
         this.idNumber = idNumber;
         this.email = email;
     }
+
+    public Student(Student student) {
+        this.firstName = student.firstName;
+        this.lastName = student.lastName;
+        this.course = student.course;
+        this.idNumber = student.idNumber;
+        this.email = student.email;
+    }
+
+    public Student() {
+    }
+    
 
     public String getFirstName() {
         return firstName;

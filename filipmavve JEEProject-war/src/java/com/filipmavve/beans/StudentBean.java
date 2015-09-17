@@ -60,8 +60,8 @@ public class StudentBean {
         superInterface.getStudentSession().setEdit(student);
     }
 
-    public String cancelAction(Student student) {
-        return null;
+    public void cancelAction(Student student) {
+        superInterface.getStudentSession().setEdit(student);
     }
     
     public String getFirstName() {

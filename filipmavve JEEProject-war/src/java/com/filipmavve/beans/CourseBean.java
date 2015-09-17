@@ -45,7 +45,7 @@ public class CourseBean {
     }
     
     public void saveAction(Course course) {
-        //todo
+        superInterface.getCourseSession().saveCourse(course);
     }
 
     public void saveAllAction() {
@@ -58,6 +58,10 @@ public class CourseBean {
 
     public void addCourse() {
         superInterface.getCourseSession().addCourse(courseId, courseName, points, level, period, teacher, maxStudents, info);
+    }
+    
+    public void cancelAction(Course course) {
+        superInterface.getCourseSession().editCourse(course);
     }
 
     public int getCourseId() {

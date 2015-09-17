@@ -24,6 +24,17 @@ public class Course {
     public Course() {
     }
     
+    public Course(Course course) {
+        this.courseId = course.courseId;
+        this.courseName = course.courseName;
+        this.points = course.points;
+        this.level = course.level;
+        this.period = course.period;
+        this.teacher = course.teacher;
+        this.maxStudents = course.maxStudents;
+        this.info = course.info;
+    }
+    
     public Course(int courseId, String courseName, int points, String level, String period, String teacher, int maxStudents, String info) {
         this.courseId = courseId;
         this.courseName = courseName;
