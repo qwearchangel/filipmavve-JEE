@@ -2,115 +2,97 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title></title>
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="style.css"  />
         <f:loadBundle basename="com.filipmavve.messages.MyMessages" var="msg"/>
-        <h:form>
-            Course Id: <h:inputText required="true" id="courseId" value="#{courseBean.courseId}"/>
-            <br/>
-            Course Name: <h:inputText id="courseName" value="#{courseBean.courseName}"/>
-            <br/>
-            Course points <h:inputText id="coursePoints" value="#{courseBean.points}"/>
-            <br/>
-            Course level: <h:inputText id="courseLevel" value="#{courseBean.level}"/>
-            <br/>
-            Course Period: <h:inputText id="coursePeriod" value="#{courseBean.period}"/>
-            <br/>
-            Course teacher: <h:inputText id="courseTeacher" value="#{courseBean.teacher}"/>
-            <br/>
-            Course max student: <h:inputText id="courseStudent" value="#{courseBean.maxStudents}"/>
-            <br/>
-            Course info:
-            <br/>
-            <h:inputTextarea id="courseInfo" value="#{courseBean.info}" />
-            <br/>
-            <br/>
-            <h:commandButton value="Add" id="courseAdd" action="#{courseBean.addCourse()}" />
+        <h:form id="registerCourse">
+            <h:panelGrid id="registerCoursePanel" columns="3" cellpadding="5">
+                Course Id: 
+                <p:inputText id="courseId" required="true" value="#{courseBean.courseId}"/>
+                <h:message id="courseIdError" for="courseId" style="color:red" /> 
+                Course Name: 
+                <p:inputText id="courseName" value="#{courseBean.courseName}"/>
+                <h:message id="courseNameError" for="courseName" style="color:red" /> 
+                Course points: 
+                <p:inputText id="coursePoints" value="#{courseBean.points}"/>
+                <h:message id="coursePointsError" for="coursePoints" style="color:red" /> 
+                Course level: 
+                <p:inputText id="courseLevel" value="#{courseBean.level}"/>
+                <h:message id="courseLevelError" for="courseLevel" style="color:red" /> 
+                Course Period: 
+                <p:inputText id="coursePeriod" value="#{courseBean.period}"/>
+                <h:message id="coursePeriodError" for="coursePeriod" style="color:red" /> 
+                Course teacher: 
+                <p:inputText id="courseTeacher" value="#{courseBean.teacher}"/>
+                <h:message id="courseTeacherError" for="courseTeacher" style="color:red" /> 
+                Course max student: 
+                <p:inputText id="courseStudent" value="#{courseBean.maxStudents}"/>
+                <h:message id="courseStudentError" for="courseStudent" style="color:red" /> 
+                Course info:
+                <p:inputTextarea id="courseInfo" value="#{courseBean.info}" />
+                <h:message id="courseInfoError" for="courseInfo" style="color:red" /> 
+            </h:panelGrid>
+            <p:commandButton value="Add" id="courseAdd" action="#{courseBean.addCourse()}" update=":courseData:courseTable"  >
+            </p:commandButton><br/><br/> <!--NEW update=""-->
+            <!-- ( When calling for a form do this->): tells what form :(<- then what in the form) Then the id of the part you want to update-->
         </h:form>
 
-        <h:form>
-            <h:dataTable id="courseTable" value="#{courseBean.courses}" var="course"
-                         styleClass="order-table"
-                         headerClass="order-table-header"
-                         rowClasses="order-table-odd-row,order-table-even-row"
-                         columnClasses="order-table-row,order-table-row,order-table-row,order-table-row,order-table-row,order-table-row">
+        <h:form id="courseData">
+            <p:dataTable id="courseTable" value="#{courseBean.courses}" var="course"
+                         styleClass="order-table" paginator="true" rows="10">
                 <f:facet name="header">
                     <h:outputText value="Logged Courses" />
                 </f:facet>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Course Id"/>
-                    </f:facet>
+                <p:column headerText="Course ID">
                     <h:outputText value="#{course.courseId}" />
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Course Name"/>
-                    </f:facet>
+                </p:column>
+                <p:column headerText="Course Name">
                     <h:outputText value="#{course.courseName}" rendered="#{not course.editable}"/>
-                    <h:inputText value="#{course.courseName}" rendered="#{ course.editable}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Points"/>
-                    </f:facet>
+                    <p:inputText value="#{course.courseName}" rendered="#{ course.editable}"/>
+                </p:column>
+                <p:column headerText="Points">
                     <h:outputText value="#{course.points}" rendered="#{not course.editable}" />
-                    <h:inputText value="#{course.points}" rendered="#{ course.editable}" />
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Level"/>
-                    </f:facet>
+                    <p:inputText value="#{course.points}" rendered="#{ course.editable}" />
+                </p:column>
+                <p:column headerText="Level">
                     <h:outputText value="#{course.level}" rendered="#{not course.editable}"/>
-                    <h:inputText value="#{course.level}" rendered="#{ course.editable}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Period"/>
-                    </f:facet>
+                    <p:inputText value="#{course.level}" rendered="#{ course.editable}"/>
+                </p:column>
+                <p:column headerText="Period">
                     <h:outputText value="#{course.period}" rendered="#{not course.editable}" />
-                    <h:inputText value="#{course.period}" rendered="#{course.editable}" />
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Teacher"/>
-                    </f:facet>
+                    <p:inputText value="#{course.period}" rendered="#{course.editable}" />
+                </p:column>
+                <p:column headerText="Teacher">
                     <h:outputText value="#{course.teacher}" rendered="#{not course.editable}"/>
-                    <h:inputText value="#{course.teacher}" rendered="#{course.editable}" />
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Max students"/>
-                    </f:facet>
+                    <p:inputText value="#{course.teacher}" rendered="#{course.editable}" />
+                </p:column>
+                <p:column headerText="Max Students">
                     <h:outputText value="#{course.maxStudents}" rendered="#{not course.editable}"/>
-                    <h:inputText value="#{course.maxStudents}" rendered="#{course.editable}" />
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Info"/>
-                    </f:facet>
+                    <p:inputText value="#{course.maxStudents}" rendered="#{course.editable}" />
+                </p:column>
+                <p:column headerText="Info">
                     <h:outputText value="#{course.info}" rendered="#{not course.editable}"/>
-                    <h:inputTextarea value="#{course.info}" rendered="#{course.editable}" />
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Action"/>
-                    </f:facet>
-                    <h:commandLink value="Edit" action="#{courseBean.editAction(course)}"
-                                   rendered="#{not course.editable}"/>
-                    <h:commandLink value="Save" action="#{courseBean.saveAction(course)}"
-                                   rendered="#{course.editable}" class="studentSave"/>
-                    <h:commandLink value="Delete" action="#{courseBean.deleteAction(course)}"
-                                   rendered="#{course.editable}" class="studentDelete"/>
-                </h:column>
-            </h:dataTable>
-            <h:commandButton value="Save all changes" action="#{courseBean.saveAllAction()}"/>
-            <br/>
-            <h:commandButton value="Back" action="Home"/>
+                    <p:inputTextarea value="#{course.info}" rendered="#{course.editable}" />
+                </p:column>
+                <p:column headerText="Action">
+                    <p:commandLink id="editCourse" value="Edit" action="#{courseBean.editAction(course)}"
+                                   rendered="#{not course.editable}" update=":courseData:courseTable"/>
+                    <p:commandLink id="deleteCourse" value="Delete" action="#{courseBean.deleteAction(course)}"
+                                   rendered="#{not course.editable}" class="actionButtons" update=":courseData:courseTable" /> <!--NEW. update=""--> 
+                    <p:commandLink id="saveCourse" value="Save" action="#{courseBean.saveAction(course)}"
+                                   rendered="#{course.editable}" class="actionButtons" update=":courseData:courseTable"/>
+                    <p:commandLink id="cancelCourse" value="Delete" rendered="#{course.editable}" update=":courseData:courseTable" />
+                </p:column>
+            </p:dataTable>
+        </h:form> <br/>
+        <h:form>
+            <p:commandButton value="Save all changes" action="#{courseBean.saveAllAction()}"/>
         </h:form>
     </h:body>
 </html>

@@ -6,7 +6,8 @@
 package com.filipmavve.beans;
 
 import com.filipmavve.domain.Course;
-import com.filipmavve.services.CourseSessionLocal;
+import com.filipmavve.services.SuperInterfaceLocal;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -20,7 +21,7 @@ import javax.faces.bean.ViewScoped;
 public class CourseBean {
 
     @EJB
-    CourseSessionLocal courseSession;
+    SuperInterfaceLocal superInterface;
     
     private int courseId;
     private String courseName;
@@ -35,30 +36,28 @@ public class CourseBean {
     public CourseBean() {
     }
     
-    public Iterable getCourses() {
-        return courseSession.getAllCourses();
+    public List<Course> getCourses() {
+        return superInterface.getCourseSession().getAllCourses();
     }
     
-    public String editAction(Course course) {
-        course.setEditable(true);
-        return null;
+    public void editAction(Course course) {
+        superInterface.getCourseSession().editCourse(course);
     }
     
-    public String saveAction(Course course) {
-        course.setEditable(false);
-        return null;
+    public void saveAction(Course course) {
+        //todo
     }
 
-    public String saveAllAction() {
-        return null;
+    public void saveAllAction() {
+        //todo
     }
     
-    public String deleteAction(Course course) {
-        return null;
+    public void deleteAction(Course course) {
+        superInterface.getCourseSession().removeCourse(course);
     }
 
     public void addCourse() {
-        
+        superInterface.getCourseSession().addCourse(courseId, courseName, points, level, period, teacher, maxStudents, info);
     }
 
     public int getCourseId() {

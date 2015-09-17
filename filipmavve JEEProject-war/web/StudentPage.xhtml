@@ -53,7 +53,6 @@
                              action="#{studentBean.addStudent()}" />
         </h:form>
         <br/>
-        <br/>   
         <h:form id="studentData">
             <p:dataTable id="studentTable" value="#{studentBean.studentsList}" var="student"
                          styleClass="order-table" paginator="true" rows="20">
@@ -62,7 +61,7 @@
                 </f:facet>
                 <p:column headerText="First Name">
                     <h:outputText value="#{student.firstName}" rendered="#{not student.editable}" />
-                    <h:inputText id="firstName" value="#{student.firstName}" rendered="#{student.editable}" />
+                    <p:inputText id="firstName" value="#{student.firstName}" rendered="#{student.editable}" />
                 </p:column>
                 <p:column headerText="Last Name">
                     <h:outputText value="#{student.lastName}" rendered="#{not student.editable}"/>
@@ -90,14 +89,11 @@
                                    rendered="#{student.editable}"  update=":studentData:studentTable"/>
                     <p:commandLink id="cancelStudent" value="Cancel" action="#{studentBean.cancelAction(student)}"
                                    rendered="#{student.editable}" class="actionButtons" update=":studentData:studentTable"/>
-
                 </p:column>
             </p:dataTable>
-        </h:form>
+        </h:form><br/>
         <h:form>
-            <h:commandButton value="Save all changes" action="#{studentBean.saveAllAction()}"/>
-            <br/>
-            <h:commandButton value="Back" action="Home"/>
+            <p:commandButton value="Save all changes" action="#{studentBean.saveAllAction()}"/>
         </h:form>
     </h:body>
 </html>

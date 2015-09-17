@@ -16,11 +16,11 @@ import javax.ejb.Local;
 @Local
 public interface CourseSessionLocal {
 
-    public void addCourse(Course course);
+    public void addCourse(int courseId, String courseName,int points,String level,String period,String teacher,int maxStudents,String info);
 
     public void removeCourse(Course course);
 
     public void editCourse(Course course);
 
-    public Iterable getAllCourses();
+    public List<Course> getAllCourses();
 }

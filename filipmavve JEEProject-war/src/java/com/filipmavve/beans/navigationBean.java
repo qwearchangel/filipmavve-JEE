@@ -17,7 +17,7 @@ import javax.faces.event.ActionEvent;
 @ViewScoped
 public class navigationBean {
     
-    String page = "hello.xhtml";
+    String page = "Login.xhtml";
 
     /**
      * Creates a new instance of navigationBean
@@ -32,7 +32,7 @@ public class navigationBean {
                 break;
             case "CoursePage": page = "CoursePage.xhtml";
                 break;
-            default: page = "hello.xhtml";
+            default: page = "Login.xhtml";
                 break;
         }
     }

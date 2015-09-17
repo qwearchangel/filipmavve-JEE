@@ -18,7 +18,7 @@ import org.jboss.weld.executor.IterativeWorkerTaskFactory;
 @Stateless
 public class CourseSession implements CourseSessionLocal {
     
-    public List<Course> courses;
+    public List<Course> courses; //temp database
 
     public CourseSession() {
         courses = new ArrayList<>();
@@ -26,20 +26,35 @@ public class CourseSession implements CourseSessionLocal {
         courses.add(new Course(2, "Java", 100, "Advanced", "All day", "Mr. BigTheeth", 30, "A Java programming class for those that want to know more."));
     }
     
+    /**
+     * Creates a new course and adds it to the database.
+     * @param courseId 
+     * @param courseName
+     * @param points
+     * @param level
+     * @param period
+     * @param teacher
+     * @param maxStudents
+     * @param info 
+     */
     @Override
-    public void addCourse(Course Course) {
+    public void addCourse(int courseId, String courseName,int points,String level,String period,String teacher,int maxStudents,String info) {
+        Course newCourse = new Course(courseId, courseName, points, level, period, teacher, maxStudents, info); 
+        courses.add(newCourse);
     }
 
     @Override
-    public void removeCourse(Course Course) {
+    public void removeCourse(Course course) {
+        courses.remove(course);
     }
 
     @Override
-    public void editCourse(Course Course) {
+    public void editCourse(Course course) {
+        courses.get(courses.indexOf(course)).setEditable(true);
     }
 
     @Override
-    public Iterable getAllCourses() {
+    public List<Course> getAllCourses() {
         return courses;
     }
 }
