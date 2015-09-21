@@ -87,7 +87,8 @@
                                    rendered="#{not course.editable}" class="actionButtons" update=":courseData:courseTable" /> <!--NEW. update=""--> 
                     <p:commandLink id="saveCourse" value="Save" action="#{courseBean.saveAction(course)}"
                                    rendered="#{course.editable}" class="actionButtons" update=":courseData:courseTable"/>
-                    <p:commandLink id="cancelCourse" value="Delete" rendered="#{course.editable}" update=":courseData:courseTable" />
+                    <p:commandLink id="cancelCourse" value="Cancel" rendered="#{course.editable}"
+                                   update=":courseData:courseTable" action="#{courseBean.cancelAction(course)}"/>
                 </p:column>
             </p:dataTable>
         </h:form> <br/>

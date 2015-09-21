@@ -50,7 +50,11 @@
             </h:panelGrid>
             <br/>
             <p:commandButton class="form-module button" id="studentAdd" value="Add Student" update=":studentData:studentTable"
-                             action="#{studentBean.addStudent()}" />
+                             action="#{studentBean.addStudent()}" >
+                <f:ajax render="studentForm:studentFirstName studentForm:studentLastName studentForm:studentIdNumber studentForm:studentEmail"
+                    resetValues="true" />
+                        
+            </p:commandButton>
         </h:form>
         <br/>
         <h:form id="studentData">
