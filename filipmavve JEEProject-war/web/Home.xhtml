@@ -15,12 +15,10 @@
             <ui:define name="left">
                 <h:form id="navigation">
                     <h:commandButton id="StudentPage" value="Student list" actionListener="#{navigationBean.goToPage}">
-                        <p:ajax update=":contentNav" />
                     </h:commandButton>
                     <br/>
                     <br/>
                     <h:commandButton id="CoursePage" value="Coruse list" actionListener="#{navigationBean.goToPage}" >
-                        <p:ajax update=":contentNav" />
                     </h:commandButton>
                     <br/>
                     <br/>
@@ -30,9 +28,7 @@
             </ui:define>
 
             <ui:define name="content">
-                <h:form id="contentNav">
                     <ui:include id="navigationContent" src="#{navigationBean.page}"/>
-                </h:form>
             </ui:define>
         </ui:composition>
     </h:body>
