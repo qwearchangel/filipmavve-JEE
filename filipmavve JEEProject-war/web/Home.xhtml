@@ -4,20 +4,23 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
+
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Attendence project</title>
     </h:head>
     <h:body >
-        
-        <ui:composition template="navigationTemplate.xhtml">
+
+        <ui:composition template="/template/navigationTemplate.xhtml">
             <ui:define name="left">
                 <h:form id="navigation">
                     <h:commandButton id="StudentPage" value="Student list" actionListener="#{navigationBean.goToPage}">
+                        <p:ajax update=":contentNav" />
                     </h:commandButton>
                     <br/>
                     <br/>
                     <h:commandButton id="CoursePage" value="Coruse list" actionListener="#{navigationBean.goToPage}" >
+                        <p:ajax update=":contentNav" />
                     </h:commandButton>
                     <br/>
                     <br/>
@@ -25,9 +28,11 @@
                     </h:commandButton>
                 </h:form>
             </ui:define>
-            
+
             <ui:define name="content">
-                <ui:include id="navigationContent" src="#{navigationBean.page}"/>
+                <h:form id="contentNav">
+                    <ui:include id="navigationContent" src="#{navigationBean.page}"/>
+                </h:form>
             </ui:define>
         </ui:composition>
     </h:body>
