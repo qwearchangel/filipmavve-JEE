@@ -9,6 +9,8 @@ import com.filipmavve.domain.Student;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -16,7 +18,9 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class StudentSession implements StudentSessionLocal {
-
+    @PersistenceContext(name = "filipmavve_JEEProject-ejbPU")
+    EntityManager em;
+    
     private List<Student> students;
     private Student oldStudent;
 
@@ -47,7 +51,8 @@ public class StudentSession implements StudentSessionLocal {
     @Override
     public void addStudent(String firstName, String lastName, String course, Long idNumber, String email) {
         Student newStudent = new Student(firstName, lastName, course, idNumber, email);
-        students.add(newStudent);
+        em.persist(newStudent);
+        em.persist(new Student());
     }
 
     @Override

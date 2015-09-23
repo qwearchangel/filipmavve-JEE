@@ -5,14 +5,20 @@
  */
 package com.filipmavve.domain;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import org.hibernate.validator.constraints.Email;
 
 /**
  *
  * @author Filip
  */
-public class Student {
-
+@Entity(name = "STUDENT")
+public class Student implements Serializable {
+    
+    @Id
+    private int id;
     private String firstName, lastName, course;
     @Email
     private String email;

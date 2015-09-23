@@ -5,12 +5,18 @@
  */
 package com.filipmavve.domain;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  *
  * @author Filip
  */
-public class Course {
-
+@Entity(name = "COURSE")
+public class Course implements Serializable {
+    
+    @Id
     private int courseId;
     private String courseName;
     private int points;
