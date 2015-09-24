@@ -27,20 +27,22 @@ public class StudentSession implements StudentSessionLocal {
 
     @Override
     public void removeStudent(Student student) {
-        em.remove(student);
+        Student delete = em.find(Student.class, student.getId());
+        em.remove(delete);
     }
 
     @Override
     public void setEdit(Student student) {
-
-//        if (!student.isEditable()) {
-//            oldStudent = new Student(student);
-//            students.get(students.indexOf(student)).setEditable(true);
+//        Student edit = em.find(Student.class, student.getId());
+//        if (!edit.isEditable()) {
+//            student.setEditable(true);
+//            edit.setEditable(true);
 //        } else {
-//            students.remove(student);
-//            oldStudent.setEditable(false);
-//            students.add(oldStudent);
+//            em.merge(edit);
+//            student.setEditable(false);
+//            edit.setEditable(false);
 //        }
+
     }
 
     @Override
@@ -58,7 +60,8 @@ public class StudentSession implements StudentSessionLocal {
 
     @Override
     public void saveStudent(Student student) {
-        em.merge(student);
+        Student save = em.find(Student.class, student.getId());
+        em.merge(save);
     }
 
     public void persist(Object object) {

@@ -60,7 +60,11 @@ public class StudentBean {
     }
 
     public void editAction(Student student) {
-        superInterface.getStudentSession().setEdit(student);
+        firstName = student.getFirstName();
+        lastName = student.getLastName();
+        email = student.getEmail();
+        idNumber = student.getIdNumber();
+        course = student.getEmail();
     }
 
     public void cancelAction(Student student) {

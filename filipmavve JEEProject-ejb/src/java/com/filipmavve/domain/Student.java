@@ -23,7 +23,8 @@ import org.hibernate.validator.constraints.Email;
  */
 @Entity(name = "STUDENT")
 @NamedQueries({
-    @NamedQuery(name = "Student.findAll", query = "SELECT s FROM STUDENT s")
+    @NamedQuery(name = "Student.findAll", query = "SELECT s FROM STUDENT s"),
+    @NamedQuery(name = "Student.findByStudentId", query = "SELECT s FROM STUDENT s WHERE s.id = :id")
 })
 public class Student implements Serializable {
     

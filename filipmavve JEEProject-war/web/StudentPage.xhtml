@@ -86,16 +86,34 @@
                 <p:column headerText="Action">
 
                     <p:commandLink id="editStudent" value="Edit" action="#{studentBean.editAction(student)}"
-                                   rendered="#{not student.editable}" update=":studentData:studentTable"/>
-                    <p:commandLink id="deleteStudent" value="Delete" action="#{studentBean.deleteAction(student)}"
+                                   rendered="#{not student.editable}" onclick="PF('editStudent').show();" update=":studentData:studentTable" />
+                    <p:commandLink id="deleteStudent" value="Delete" action="#{studentBean.deleteAction(student)}" 
                                    rendered="#{not student.editable}" class="actionButtons" update=":studentData:studentTable"/>
-                    <p:commandLink id="saveStudent" value="Save" action="#{studentBean.saveAction(student)}"
+                    <!--<p:commandLink id="saveStudent" value="Save" action="#{studentBean.saveAction(student)}"
                                    rendered="#{student.editable}"  update=":studentData:studentTable"/>
                     <p:commandLink id="cancelStudent" value="Cancel" action="#{studentBean.cancelAction(student)}"
-                                   rendered="#{student.editable}" class="actionButtons" update=":studentData:studentTable"/>
+                                   rendered="#{student.editable}" class="actionButtons" update=":studentData:studentTable"/> -->
                 </p:column>
             </p:dataTable>
         </h:form><br/>
+        <h:form id="studentEdit">
+            <p:dialog header="Edit Student" widgetVar="editStudent">
+                <h:panelGrid columns="2" cellspacing="5">
+                    First Name:
+                    <p:inputText id="editFirstName" value="#{studentBean.firstName}" />
+                    Last Name:
+                    <p:inputText id="editLastName" value="#{studentBean.lastName}" />
+                    id Number:
+                    <p:inputText id="editIdNumber" value="#{studentBean.idNumber}" />
+                    Email:
+                    <p:inputText id="editEmail" value="#{studentBean.email}" />
+                    Course:
+                    <p:inputText id="editCourse" value="#{studentBean.course}" />
+                    <p:commandButton id="saveStudent" value="Save" action="#{studentBean.saveAction(student)}" onclick="PF('editStudent').hide();" />
+                    <p:commandButton id="cancelEdit" value="Cancel" onclick="PF('editStudent').hide();" />
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>
         <h:form>
             <p:commandButton value="Save all changes" action="#{studentBean.saveAllAction()}"/>
         </h:form>
