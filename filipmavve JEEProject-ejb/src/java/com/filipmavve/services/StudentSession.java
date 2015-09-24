@@ -21,51 +21,41 @@ public class StudentSession implements StudentSessionLocal {
     @PersistenceContext(name = "filipmavve_JEEProject-ejbPU")
     EntityManager em;
     
-    private List<Student> students;
-    private Student oldStudent;
-
     public StudentSession() {
-        students = new ArrayList<>();
-        students.add(new Student("Bob", "Bobsson", "abc", 8705021456L, "bobsson@gmail.com"));
-        students.add(new Student("Torkel", "Börjesson", "Java for beginners", 8906048531L, "Torkel@gmail.com"));
     }
 
     @Override
     public void removeStudent(Student student) {
-        students.remove(student);
+        em.remove(student);
     }
 
     @Override
     public void setEdit(Student student) {
 
-        if (!student.isEditable()) {
-            oldStudent = new Student(student);
-            students.get(students.indexOf(student)).setEditable(true);
-        } else {
-            students.remove(student);
-            oldStudent.setEditable(false);
-            students.add(oldStudent);
-        }
+//        if (!student.isEditable()) {
+//            oldStudent = new Student(student);
+//            students.get(students.indexOf(student)).setEditable(true);
+//        } else {
+//            students.remove(student);
+//            oldStudent.setEditable(false);
+//            students.add(oldStudent);
+//        }
     }
 
     @Override
     public void addStudent(String firstName, String lastName, String course, Long idNumber, String email) {
         Student newStudent = new Student(firstName, lastName, course, idNumber, email);
         em.persist(newStudent);
-        em.persist(new Student());
     }
 
     @Override
     public List<Student> getAllStudents() {
-        return students;
+        return null;
     }
 
     @Override
     public void saveStudent(Student student) {
-        Student updateStudent = new Student(student.getFirstName(), student.getLastName(), student.getCourse(), student.getIdNumber(), student.getEmail());
-        students.remove(student);
-        updateStudent.setEditable(false);
-        students.add(updateStudent);
+        em.merge(student);
     }
 
 }

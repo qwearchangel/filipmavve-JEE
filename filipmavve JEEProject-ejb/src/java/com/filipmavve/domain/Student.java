@@ -6,7 +6,10 @@
 package com.filipmavve.domain;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import org.hibernate.validator.constraints.Email;
 
@@ -18,6 +21,8 @@ import org.hibernate.validator.constraints.Email;
 public class Student implements Serializable {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "S_ID")
     private int id;
     private String firstName, lastName, course;
     @Email
@@ -91,5 +96,13 @@ public class Student implements Serializable {
 
     public void setEditable(boolean editable) {
         this.editable = editable;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

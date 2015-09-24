@@ -10,7 +10,9 @@ import com.filipmavve.services.SuperInterfaceLocal;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -30,17 +32,18 @@ public class StudentBean {
 
     public StudentBean() {
     }
-    
+
     public Iterable getCourses() {
         return superInterface.getCourseSession().getAllCourses();
     }
-    
+
     public List<Student> getStudentsList() {
         return superInterface.getStudentSession().getAllStudents();
     }
 
     public void addStudent() {
         superInterface.getStudentSession().addStudent(firstName, lastName, course, idNumber, email);
+        resetInput();
     }
 
     public void deleteAction(Student student) {
@@ -63,7 +66,7 @@ public class StudentBean {
     public void cancelAction(Student student) {
         superInterface.getStudentSession().setEdit(student);
     }
-    
+
     public String getFirstName() {
         return firstName;
     }
@@ -110,5 +113,15 @@ public class StudentBean {
 
     public void setEditable(boolean editable) {
         this.editable = editable;
+    }
+
+    private void resetInput() {
+//         RequestContext.getCurrentInstance().reset("studentForm:studentPanelGrid:studentFirstName");
+//         System.out.println("reset test");
+        firstName = "";
+        lastName = "";
+        course = "";
+        idNumber = 0L;
+        email = "";
     }
 }
