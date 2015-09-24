@@ -6,11 +6,11 @@
 package com.filipmavve.services;
 
 import com.filipmavve.domain.Student;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -18,9 +18,10 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class StudentSession implements StudentSessionLocal {
+
     @PersistenceContext(name = "filipmavve_JEEProject-ejbPU")
     EntityManager em;
-    
+
     public StudentSession() {
     }
 
@@ -50,12 +51,18 @@ public class StudentSession implements StudentSessionLocal {
 
     @Override
     public List<Student> getAllStudents() {
-        return null;
+        TypedQuery<Student> query = em.createNamedQuery("Student.findAll", Student.class);
+        List<Student> result = query.getResultList();
+        return result;
     }
 
     @Override
     public void saveStudent(Student student) {
         em.merge(student);
+    }
+
+    public void persist(Object object) {
+        em.persist(object);
     }
 
 }

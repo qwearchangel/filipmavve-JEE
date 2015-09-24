@@ -11,12 +11,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Transient;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 
 /**
  *
  * @author Filip
  */
 @Entity(name = "COURSE")
+@NamedQueries({
+    @NamedQuery(name = "Course.findAll", query = "SELECT c FROM COURSE c")
+})
 public class Course implements Serializable {
     
     @Id
@@ -26,11 +33,12 @@ public class Course implements Serializable {
     private int courseId;
     private String courseName;
     private int points;
-    private String level;
-    private String period;
+    private String c_level;
+    private String c_period;
     private String teacher;
     private int maxStudents;
     private String info;
+    @Transient
     private boolean editable;
 
     public Course() {
@@ -40,8 +48,8 @@ public class Course implements Serializable {
         this.courseId = course.courseId;
         this.courseName = course.courseName;
         this.points = course.points;
-        this.level = course.level;
-        this.period = course.period;
+        this.c_level = course.c_level;
+        this.c_period = course.c_period;
         this.teacher = course.teacher;
         this.maxStudents = course.maxStudents;
         this.info = course.info;
@@ -51,8 +59,8 @@ public class Course implements Serializable {
         this.courseId = courseId;
         this.courseName = courseName;
         this.points = points;
-        this.level = level;
-        this.period = period;
+        this.c_level = level;
+        this.c_period = period;
         this.teacher = teacher;
         this.maxStudents = maxStudents;
         this.info = info;
@@ -84,19 +92,19 @@ public class Course implements Serializable {
     }
 
     public String getLevel() {
-        return level;
+        return c_level;
     }
 
     public void setLevel(String level) {
-        this.level = level;
+        this.c_level = level;
     }
 
     public String getPeriod() {
-        return period;
+        return c_period;
     }
 
     public void setPeriod(String period) {
-        this.period = period;
+        this.c_period = period;
     }
 
     public String getTeacher() {

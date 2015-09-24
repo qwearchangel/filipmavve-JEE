@@ -11,6 +11,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import org.hibernate.validator.constraints.Email;
 
 /**
@@ -18,6 +22,9 @@ import org.hibernate.validator.constraints.Email;
  * @author Filip
  */
 @Entity(name = "STUDENT")
+@NamedQueries({
+    @NamedQuery(name = "Student.findAll", query = "SELECT s FROM STUDENT s")
+})
 public class Student implements Serializable {
     
     @Id
@@ -28,6 +35,7 @@ public class Student implements Serializable {
     @Email
     private String email;
     private long idNumber;
+    @Transient
     private boolean editable;
 
     public Student(String firstName, String lastName, String course, long idNumber, String email) {

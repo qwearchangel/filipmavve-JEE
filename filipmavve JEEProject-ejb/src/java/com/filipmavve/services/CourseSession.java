@@ -11,6 +11,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import org.jboss.weld.executor.IterativeWorkerTaskFactory;
 
 /**
@@ -66,7 +67,9 @@ public class CourseSession implements CourseSessionLocal {
 
     @Override
     public List<Course> getAllCourses() {
-        return null;
+        TypedQuery<Course> query = em.createNamedQuery("Course.findAll", Course.class);
+        List<Course> result = query.getResultList();
+        return result;
     }
 
     @Override
