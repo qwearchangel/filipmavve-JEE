@@ -10,9 +10,7 @@ import com.filipmavve.services.SuperInterfaceLocal;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
-import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -25,6 +23,7 @@ public class StudentBean {
     @EJB
     SuperInterfaceLocal superInterface;
 
+    int id;
     String firstName, lastName, course;
     String email;
     long idNumber;
@@ -43,14 +42,15 @@ public class StudentBean {
 
     public void addStudent() {
         superInterface.getStudentSession().addStudent(firstName, lastName, course, idNumber, email);
-        resetInput();
     }
 
     public void deleteAction(Student student) {
         superInterface.getStudentSession().removeStudent(student);
     }
 
-    public void saveAction(Student student) {
+    public void saveAction() {
+        Student student = new Student(firstName, lastName, course, idNumber, email);
+        student.setId(id);
         superInterface.getStudentSession().saveStudent(student);
     }
 
@@ -60,11 +60,12 @@ public class StudentBean {
     }
 
     public void editAction(Student student) {
+        id = student.getId();
         firstName = student.getFirstName();
         lastName = student.getLastName();
         email = student.getEmail();
         idNumber = student.getIdNumber();
-        course = student.getEmail();
+        course = student.getCourse();
     }
 
     public void cancelAction(Student student) {
@@ -119,13 +120,11 @@ public class StudentBean {
         this.editable = editable;
     }
 
-    private void resetInput() {
-//         RequestContext.getCurrentInstance().reset("studentForm:studentPanelGrid:studentFirstName");
-//         System.out.println("reset test");
-        firstName = "";
-        lastName = "";
-        course = "";
-        idNumber = 0L;
-        email = "";
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

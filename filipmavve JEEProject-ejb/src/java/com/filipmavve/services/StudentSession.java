@@ -60,7 +60,7 @@ public class StudentSession implements StudentSessionLocal {
 
     @Override
     public void saveStudent(Student student) {
-        Student save = em.find(Student.class, student.getId());
+        Student save = student;
         em.merge(save);
     }
 

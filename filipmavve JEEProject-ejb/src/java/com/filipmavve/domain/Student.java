@@ -53,6 +53,7 @@ public class Student implements Serializable {
         this.course = student.course;
         this.idNumber = student.idNumber;
         this.email = student.email;
+        this.id = student.id;
     }
 
     public Student() {
