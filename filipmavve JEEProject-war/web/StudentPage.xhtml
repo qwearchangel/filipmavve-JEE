@@ -65,31 +65,26 @@
                     <h:outputText value="Logged Students" />
                 </f:facet>
                 <p:column headerText="First Name">
-                    <h:outputText value="#{student.firstName}" rendered="#{not student.editable}" />
-                    <p:inputText id="firstName" value="#{student.firstName}" rendered="#{student.editable}" />
+                    <h:outputText value="#{student.firstName}" />
                 </p:column>
                 <p:column headerText="Last Name">
-                    <h:outputText value="#{student.lastName}" rendered="#{not student.editable}"/>
-                    <p:inputText id="lastName" value="#{student.lastName}" rendered="#{student.editable}"/>
+                    <h:outputText value="#{student.lastName}" />
                 </p:column>
                 <p:column headerText="Course">
-                    <h:outputText value="#{student.course}" rendered="#{not student.editable}" />
-                    <p:inputText id="course" value="#{student.course}" rendered="#{student.editable}" />
+                    <h:outputText value="in progress"/>
                 </p:column>
                 <p:column headerText="Email">
-                    <h:outputText value="#{student.email}" rendered="#{not student.editable}"/>
-                    <p:inputText id="email" value="#{student.email}" rendered="#{student.editable}"/>
+                    <h:outputText value="#{student.email}" />
                 </p:column>
                 <p:column headerText="Id Number">
-                    <h:outputText value="#{student.idNumber}" rendered="#{not student.editable}" />
-                    <p:inputText value="#{student.idNumber}"  rendered="#{student.editable}" />
+                    <h:outputText value="#{student.ssn}" />
                 </p:column>
                 <p:column headerText="Action">
 
                     <p:commandLink id="editStudent" value="Edit" action="#{studentBean.editAction(student)}"
-                                   rendered="#{not student.editable}" oncomplete="PF('editStudent').show();" update=":studentData:studentTable, :studentEdit" />
+                                   oncomplete="PF('editStudent').show();" update=":studentData:studentTable, :studentEdit" />
                     <p:commandLink id="deleteStudent" value="Delete" action="#{studentBean.deleteAction(student)}" 
-                                   rendered="#{not student.editable}" class="actionButtons" update=":studentData:studentTable"/>
+                                   class="actionButtons" update=":studentData:studentTable"/>
                 </p:column>
             </p:dataTable>
         </h:form><br/>

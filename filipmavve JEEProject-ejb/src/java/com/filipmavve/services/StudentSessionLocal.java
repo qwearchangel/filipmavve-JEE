@@ -16,7 +16,7 @@ import javax.ejb.Local;
 @Local
 public interface StudentSessionLocal {
 
-    void addStudent(String firstName, String lastName, String course, Long idNumber, String email);
+    void addStudent(String firstName, String lastName, String course, String idNumber, String email);
 
     void removeStudent(Student student);
 

@@ -6,73 +6,99 @@
 package com.filipmavve.domain;
 
 import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Transient;
-import jdk.nashorn.internal.ir.annotations.Ignore;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Filip
  */
-@Entity(name = "COURSE")
+@Entity
+@Table(name = "course")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Course.findAll", query = "SELECT c FROM COURSE c")
-})
+    @NamedQuery(name = "Course.findAll", query = "SELECT c FROM Course c"),
+    @NamedQuery(name = "Course.findById", query = "SELECT c FROM Course c WHERE c.id = :id"),
+    @NamedQuery(name = "Course.findByCourseName", query = "SELECT c FROM Course c WHERE c.courseName = :courseName"),
+    @NamedQuery(name = "Course.findByPoints", query = "SELECT c FROM Course c WHERE c.points = :points"),
+    @NamedQuery(name = "Course.findByLevel", query = "SELECT c FROM Course c WHERE c.level = :level"),
+    @NamedQuery(name = "Course.findByMaxStudents", query = "SELECT c FROM Course c WHERE c.maxStudents = :maxStudents")})
 public class Course implements Serializable {
-    
+    private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "C_ID")
-    private int id;
-    private int courseId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "COURSE_NAME")
     private String courseName;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "POINTS")
     private int points;
-    private String c_level;
-    private String c_period;
-    private String teacher;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "LEVEL")
+    private String level;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "MAX_STUDENTS")
     private int maxStudents;
+    @Lob
+    @Size(max = 2147483647)
+    @Column(name = "INFO")
     private String info;
-    @Transient
-    private boolean editable;
+    @JoinTable(name = "student_has_course", joinColumns = {
+        @JoinColumn(name = "COURSE_ID", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "STUDENT_ID", referencedColumnName = "ID")})
+    @ManyToMany
+    private Collection<Student> studentCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
+    private Collection<Teacher> teacherCollection;
 
     public Course() {
     }
-    
-    public Course(Course course) {
-        this.courseId = course.courseId;
-        this.courseName = course.courseName;
-        this.points = course.points;
-        this.c_level = course.c_level;
-        this.c_period = course.c_period;
-        this.teacher = course.teacher;
-        this.maxStudents = course.maxStudents;
-        this.info = course.info;
-    }
-    
-    public Course(int courseId, String courseName, int points, String level, String period, String teacher, int maxStudents, String info) {
-        this.courseId = courseId;
-        this.courseName = courseName;
-        this.points = points;
-        this.c_level = level;
-        this.c_period = period;
-        this.teacher = teacher;
-        this.maxStudents = maxStudents;
-        this.info = info;
-    }
-    
-    
-    public int getCourseId() {
-        return courseId;
+
+    public Course(Integer id) {
+        this.id = id;
     }
 
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
+    public Course(Integer id, String courseName, int points, String level, int maxStudents) {
+        this.id = id;
+        this.courseName = courseName;
+        this.points = points;
+        this.level = level;
+        this.maxStudents = maxStudents;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCourseName() {
@@ -92,27 +118,11 @@ public class Course implements Serializable {
     }
 
     public String getLevel() {
-        return c_level;
+        return level;
     }
 
     public void setLevel(String level) {
-        this.c_level = level;
-    }
-
-    public String getPeriod() {
-        return c_period;
-    }
-
-    public void setPeriod(String period) {
-        this.c_period = period;
-    }
-
-    public String getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(String teacher) {
-        this.teacher = teacher;
+        this.level = level;
     }
 
     public int getMaxStudents() {
@@ -131,19 +141,47 @@ public class Course implements Serializable {
         this.info = info;
     }
 
-    public boolean isEditable() {
-        return editable;
+    @XmlTransient
+    public Collection<Student> getStudentCollection() {
+        return studentCollection;
     }
 
-    public void setEditable(boolean editable) {
-        this.editable = editable;
+    public void setStudentCollection(Collection<Student> studentCollection) {
+        this.studentCollection = studentCollection;
     }
 
-    public int getId() {
-        return id;
+    @XmlTransient
+    public Collection<Teacher> getTeacherCollection() {
+        return teacherCollection;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setTeacherCollection(Collection<Teacher> teacherCollection) {
+        this.teacherCollection = teacherCollection;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Course)) {
+            return false;
+        }
+        Course other = (Course) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.filipmavve.domain.Course[ id=" + id + " ]";
+    }
+    
 }

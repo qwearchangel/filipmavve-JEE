@@ -6,13 +6,11 @@
 package com.filipmavve.services;
 
 import com.filipmavve.domain.Course;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import org.jboss.weld.executor.IterativeWorkerTaskFactory;
 
 /**
  *
@@ -24,8 +22,6 @@ public class CourseSession implements CourseSessionLocal {
     @PersistenceContext (name = "filipmavve_JEEProject-ejbPU")
     EntityManager em;
     
-    private Course oldCourse;
-
     public CourseSession() {
     }
 
@@ -43,8 +39,8 @@ public class CourseSession implements CourseSessionLocal {
      */
     @Override
     public void addCourse(int courseId, String courseName, int points, String level, String period, String teacher, int maxStudents, String info) {
-        Course newCourse = new Course(courseId, courseName, points, level, period, teacher, maxStudents, info);
-        em.persist(newCourse);
+//        Course newCourse = new Course(courseId, courseName, points, level, period, teacher, maxStudents, info);
+//        em.persist(newCourse);
     }
 
     @Override

@@ -26,8 +26,7 @@ public class StudentBean {
     int id;
     String firstName, lastName, course;
     String email;
-    long idNumber;
-    boolean editable;
+    String idNumber;
 
     public StudentBean() {
     }
@@ -49,7 +48,7 @@ public class StudentBean {
     }
 
     public void saveAction() {
-        Student student = new Student(firstName, lastName, course, idNumber, email);
+        Student student = new Student(firstName, lastName, email, idNumber);
         student.setId(id);
         superInterface.getStudentSession().saveStudent(student);
     }
@@ -64,8 +63,7 @@ public class StudentBean {
         firstName = student.getFirstName();
         lastName = student.getLastName();
         email = student.getEmail();
-        idNumber = student.getIdNumber();
-        course = student.getCourse();
+        idNumber = student.getSsn();
     }
 
     public void cancelAction(Student student) {
@@ -104,20 +102,12 @@ public class StudentBean {
         this.email = email;
     }
 
-    public long getIdNumber() {
+    public String getIdNumber() {
         return idNumber;
     }
 
-    public void setIdNumber(long idNumber) {
+    public void setIdNumber(String idNumber) {
         this.idNumber = idNumber;
-    }
-
-    public boolean isEditable() {
-        return editable;
-    }
-
-    public void setEditable(boolean editable) {
-        this.editable = editable;
     }
 
     public int getId() {

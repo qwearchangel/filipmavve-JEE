@@ -46,8 +46,8 @@ public class StudentSession implements StudentSessionLocal {
     }
 
     @Override
-    public void addStudent(String firstName, String lastName, String course, Long idNumber, String email) {
-        Student newStudent = new Student(firstName, lastName, course, idNumber, email);
+    public void addStudent(String firstName, String lastName, String course, String idNumber, String email) {
+        Student newStudent = new Student(firstName, lastName, email, idNumber);
         em.persist(newStudent);
     }
 
