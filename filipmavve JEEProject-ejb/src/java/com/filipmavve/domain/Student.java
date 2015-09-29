@@ -95,11 +95,12 @@ public class Student implements Serializable {
         this.ssn = ssn;
     }
 
-    public Student(String firstName, String lastName, String email, String ssn) {
+    public Student(String firstName, String lastName, String email, String ssn, int phone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.ssn = ssn;
+        this.phone = phone;
     }
 
     public Integer getId() {

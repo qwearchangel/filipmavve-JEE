@@ -13,7 +13,7 @@
 
         <h:outputStylesheet library="css" name="style.css"  />
         <f:loadBundle basename="com.filipmavve.messages.MyMessages" var="msg"/>
-        
+
         <h:form id="studentForm">
             <p:dialog header="Register Student" widgetVar="studentRegister" modal="true" height="250" width="500" closeOnEscape="true">
                 <h:panelGrid id="studentPanelGrid" columns="3" cellpadding="5">
@@ -30,10 +30,10 @@
                     <h:message id="lastNameError" for="studentLastName" style="color:red" />
 
 
-                    Student IdNumber: 
-                    <p:inputText id="studentId"
-                                 value="#{studentBean.idNumber}"/>
-                    <h:message id="idError" for="studentId" style="color:red" />
+                    Student ssn: 
+                    <p:inputText id="studentSsn"
+                                 value="#{studentBean.ssn}"/>
+                    <h:message id="ssnError" for="studentSsn" style="color:red" />
 
                     Student email: 
                     <p:inputText id="studentEmail"
@@ -43,17 +43,21 @@
                     </p:inputText>
                     <h:message id="emailError" for="studentEmail" style="color:red" />
 
+                    Student phone:
+                    <p:inputText id="studentPhone" value="#{studentBean.phone}"></p:inputText>
+                    <h:message id="phoneError" for="studentPhone" style="color: red" />
+
                     <p:outputLabel for="studentCorse" value="Course list"/>
                     <p:selectOneMenu id="studentCorse" value="#{studentBean.course}"  >
                         <f:selectItem itemLabel="Select Course"  noSelectionOption="true"/>
                         <f:selectItems value="#{studentBean.courses}" var="selectedCourse"
-                                       itemLabel="#{selectedCourse.courseName}" itemValue="#{selectedCourse.courseName}" />
+                                       itemLabel="#{selectedCourse.courseName}" itemValue="#{selectedCourse.id}" />
                     </p:selectOneMenu>
                 </h:panelGrid>
                 <br/>
                 <p:commandButton class="form-module button" id="studentAdd" value="Add Student" update=":studentData:studentTable" 
-                                 action="#{studentBean.addStudent()}" oncomplete="PF('studentRegister').hide();">
-                </p:commandButton>
+                                 action="#{studentBean.addStudent()}" oncomplete="PF('studentRegister').hide();" />
+                <p:commandButton class="form-module button" id="studentAddCancel" value="Cancel" onclick="PF('studentRegister').hide()" />
             </p:dialog>
         </h:form>
         <br/>
@@ -64,6 +68,12 @@
                 <f:facet name="header">
                     <h:outputText value="Logged Students" />
                 </f:facet>
+                <p:column headerText="id" >
+                    <h:outputText value="#{student.id}" />
+                </p:column>
+                <p:column headerText="Ssn">
+                    <h:outputText value="#{student.ssn}" />
+                </p:column>
                 <p:column headerText="First Name">
                     <h:outputText value="#{student.firstName}" />
                 </p:column>
@@ -76,8 +86,8 @@
                 <p:column headerText="Email">
                     <h:outputText value="#{student.email}" />
                 </p:column>
-                <p:column headerText="Id Number">
-                    <h:outputText value="#{student.ssn}" />
+                <p:column headerText="Phone nr" >
+                    <h:outputText value="#{student.phone}" />
                 </p:column>
                 <p:column headerText="Action">
 
@@ -96,21 +106,17 @@
                     <p:inputText id="editFirstName" value="#{studentBean.firstName}" />
                     Last Name:
                     <p:inputText id="editLastName" value="#{studentBean.lastName}" />
-                    id Number:
-                    <p:inputText id="editIdNumber" value="#{studentBean.idNumber}" />
+                    Ssn:
+                    <p:inputText id="editIdNumber" value="#{studentBean.ssn}" />
                     Email:
                     <p:inputText id="editEmail" value="#{studentBean.email}" />
-                    Course:
-                    <p:inputText id="editCourse" value="#{studentBean.course}" />
+                    Phone: 
+                    <p:inputText id="editPhone" value="#{studentBean.phone}" />
                     <p:commandButton id="saveStudent" value="Save" action="#{studentBean.saveAction()}" oncomplete="PF('editStudent').hide();"
                                      update=":studentData:studentTable" />
                     <p:commandButton id="cancelEdit" value="Cancel" onclick="PF('editStudent').hide();" />
                 </h:panelGrid>
             </h:form>
         </p:dialog>
-
-        <h:form>
-            <p:commandButton value="Save all changes" action="#{studentBean.saveAllAction()}"/>
-        </h:form>
     </h:body>
 </html>

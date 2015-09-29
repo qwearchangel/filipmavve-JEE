@@ -8,14 +8,19 @@ package com.filipmavve.domain;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -39,8 +44,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Teacher.findByCourseId", query = "SELECT t FROM Teacher t WHERE t.teacherPK.courseId = :courseId")})
 public class Teacher implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected TeacherPK teacherPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -63,35 +71,30 @@ public class Teacher implements Serializable {
     private String email;
     @ManyToMany(mappedBy = "teacherCollection")
     private Collection<Student> studentCollection;
-    @JoinColumn(name = "COURSE_ID", referencedColumnName = "ID", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Course course;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacherId")
+    private Collection<Course> courseCollection;
 
     public Teacher() {
     }
 
-    public Teacher(TeacherPK teacherPK) {
-        this.teacherPK = teacherPK;
+    public Teacher(Integer id) {
+        this.id = id;
     }
 
-    public Teacher(TeacherPK teacherPK, String firstName, String lastName, int phone, String email) {
-        this.teacherPK = teacherPK;
+    public Teacher(Integer id, String firstName, String lastName, int phone, String email) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
         this.email = email;
     }
 
-    public Teacher(int id, int courseId) {
-        this.teacherPK = new TeacherPK(id, courseId);
+    public Integer getId() {
+        return id;
     }
 
-    public TeacherPK getTeacherPK() {
-        return teacherPK;
-    }
-
-    public void setTeacherPK(TeacherPK teacherPK) {
-        this.teacherPK = teacherPK;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -135,18 +138,19 @@ public class Teacher implements Serializable {
         this.studentCollection = studentCollection;
     }
 
-    public Course getCourse() {
-        return course;
+    @XmlTransient
+    public Collection<Course> getCourseCollection() {
+        return courseCollection;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setCourseCollection(Collection<Course> courseCollection) {
+        this.courseCollection = courseCollection;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (teacherPK != null ? teacherPK.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -157,7 +161,7 @@ public class Teacher implements Serializable {
             return false;
         }
         Teacher other = (Teacher) object;
-        if ((this.teacherPK == null && other.teacherPK != null) || (this.teacherPK != null && !this.teacherPK.equals(other.teacherPK))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -165,7 +169,7 @@ public class Teacher implements Serializable {
 
     @Override
     public String toString() {
-        return "com.filipmavve.domain.Teacher[ teacherPK=" + teacherPK + " ]";
+        return "demio.Teacher[ id=" + id + " ]";
     }
     
 }

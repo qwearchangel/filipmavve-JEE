@@ -6,6 +6,7 @@
 package com.filipmavve.beans;
 
 import com.filipmavve.domain.Course;
+import com.filipmavve.domain.Teacher;
 import com.filipmavve.services.SuperInterfaceLocal;
 import java.util.List;
 import javax.ejb.EJB;
@@ -23,15 +24,14 @@ public class CourseBean {
     @EJB
     SuperInterfaceLocal superInterface;
     
-    private int courseId;
+    private int id;
     private String courseName;
     private int points;
     private String level;
     private String period;
-    private String teacher;
+    private Teacher teacher;
     private int maxStudents;
     private String info;
-    private boolean editable;
 
     public CourseBean() {
     }
@@ -41,35 +41,34 @@ public class CourseBean {
     }
     
     public void editAction(Course course) {
-        superInterface.getCourseSession().editCourse(course);
+        this.id = course.getId();
+        this.courseName = course.getCourseName();
+        this.points = course.getPoints();
+        this.level = course.getLevel();
+        this.teacher = null;
+        this.maxStudents = course.getMaxStudents();
+        this.info = course.getInfo();
     }
     
-    public void saveAction(Course course) {
+    public void saveAction() {
+        Course course = new Course(courseName, points, level, maxStudents, info);
         superInterface.getCourseSession().saveCourse(course);
     }
 
-    public void saveAllAction() {
-        //todo
-    }
-    
     public void deleteAction(Course course) {
         superInterface.getCourseSession().removeCourse(course);
     }
 
     public void addCourse() {
-        superInterface.getCourseSession().addCourse(courseId, courseName, points, level, period, teacher, maxStudents, info);
-    }
-    
-    public void cancelAction(Course course) {
-        superInterface.getCourseSession().editCourse(course);
+        superInterface.getCourseSession().addCourse(courseName, points, level, level, maxStudents, info);
     }
 
-    public int getCourseId() {
-        return courseId;
+    public int getId() {
+        return id;
     }
 
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCourseName() {
@@ -104,11 +103,11 @@ public class CourseBean {
         this.period = period;
     }
 
-    public String getTeacher() {
+    public Teacher getTeacher() {
         return teacher;
     }
 
-    public void setTeacher(String teacher) {
+    public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
 
@@ -126,13 +125,5 @@ public class CourseBean {
 
     public void setInfo(String info) {
         this.info = info;
-    }
-
-    public boolean isEditable() {
-        return editable;
-    }
-
-    public void setEditable(boolean editable) {
-        this.editable = editable;
     }
 }

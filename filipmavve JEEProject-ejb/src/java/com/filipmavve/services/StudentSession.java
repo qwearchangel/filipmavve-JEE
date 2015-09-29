@@ -5,6 +5,7 @@
  */
 package com.filipmavve.services;
 
+import com.filipmavve.domain.Course;
 import com.filipmavve.domain.Student;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -32,26 +33,6 @@ public class StudentSession implements StudentSessionLocal {
     }
 
     @Override
-    public void setEdit(Student student) {
-//        Student edit = em.find(Student.class, student.getId());
-//        if (!edit.isEditable()) {
-//            student.setEditable(true);
-//            edit.setEditable(true);
-//        } else {
-//            em.merge(edit);
-//            student.setEditable(false);
-//            edit.setEditable(false);
-//        }
-
-    }
-
-    @Override
-    public void addStudent(String firstName, String lastName, String course, String idNumber, String email) {
-        Student newStudent = new Student(firstName, lastName, email, idNumber);
-        em.persist(newStudent);
-    }
-
-    @Override
     public List<Student> getAllStudents() {
         TypedQuery<Student> query = em.createNamedQuery("Student.findAll", Student.class);
         List<Student> result = query.getResultList();
@@ -66,6 +47,12 @@ public class StudentSession implements StudentSessionLocal {
 
     public void persist(Object object) {
         em.persist(object);
+    }
+
+    @Override
+    public void addStudent(String firstName, String lastName, String ssn, String email, int phone) {
+        Student newStudent = new Student(firstName, lastName, email, ssn, phone);
+        em.persist(newStudent);
     }
 
 }

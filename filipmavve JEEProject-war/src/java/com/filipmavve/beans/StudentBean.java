@@ -5,6 +5,7 @@
  */
 package com.filipmavve.beans;
 
+import com.filipmavve.domain.Course;
 import com.filipmavve.domain.Student;
 import com.filipmavve.services.SuperInterfaceLocal;
 import java.util.List;
@@ -24,9 +25,11 @@ public class StudentBean {
     SuperInterfaceLocal superInterface;
 
     int id;
-    String firstName, lastName, course;
+    String firstName, lastName;
+    Course course;
     String email;
-    String idNumber;
+    String ssn;
+    int phone;
 
     public StudentBean() {
     }
@@ -40,7 +43,7 @@ public class StudentBean {
     }
 
     public void addStudent() {
-        superInterface.getStudentSession().addStudent(firstName, lastName, course, idNumber, email);
+        superInterface.getStudentSession().addStudent(firstName, lastName, ssn, email, phone);
     }
 
     public void deleteAction(Student student) {
@@ -48,14 +51,9 @@ public class StudentBean {
     }
 
     public void saveAction() {
-        Student student = new Student(firstName, lastName, email, idNumber);
+        Student student = new Student(firstName, lastName, email, ssn, phone);
         student.setId(id);
         superInterface.getStudentSession().saveStudent(student);
-    }
-
-    public String saveAllAction() {
-
-        return null;
     }
 
     public void editAction(Student student) {
@@ -63,11 +61,7 @@ public class StudentBean {
         firstName = student.getFirstName();
         lastName = student.getLastName();
         email = student.getEmail();
-        idNumber = student.getSsn();
-    }
-
-    public void cancelAction(Student student) {
-        superInterface.getStudentSession().setEdit(student);
+        ssn = student.getSsn();
     }
 
     public String getFirstName() {
@@ -86,11 +80,11 @@ public class StudentBean {
         this.lastName = lastName;
     }
 
-    public String getCourse() {
+    public Course getCourse() {
         return course;
     }
 
-    public void setCourse(String course) {
+    public void setCourse(Course course) {
         this.course = course;
     }
 
@@ -102,12 +96,12 @@ public class StudentBean {
         this.email = email;
     }
 
-    public String getIdNumber() {
-        return idNumber;
+    public String getSsn() {
+        return ssn;
     }
 
-    public void setIdNumber(String idNumber) {
-        this.idNumber = idNumber;
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
     }
 
     public int getId() {
@@ -116,5 +110,13 @@ public class StudentBean {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getPhone() {
+        return phone;
+    }
+
+    public void setPhone(int phone) {
+        this.phone = phone;
     }
 }

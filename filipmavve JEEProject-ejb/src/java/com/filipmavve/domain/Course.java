@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -75,8 +76,9 @@ public class Course implements Serializable {
         @JoinColumn(name = "STUDENT_ID", referencedColumnName = "ID")})
     @ManyToMany
     private Collection<Student> studentCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
-    private Collection<Teacher> teacherCollection;
+    @JoinColumn(name = "TEACHER_ID", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Teacher teacherId;
 
     public Course() {
     }
@@ -92,6 +94,15 @@ public class Course implements Serializable {
         this.level = level;
         this.maxStudents = maxStudents;
     }
+
+    public Course(String courseName, int points, String level, int maxStudents, String info) {
+        this.courseName = courseName;
+        this.points = points;
+        this.level = level;
+        this.maxStudents = maxStudents;
+        this.info = info;
+    }
+    
 
     public Integer getId() {
         return id;
@@ -150,13 +161,12 @@ public class Course implements Serializable {
         this.studentCollection = studentCollection;
     }
 
-    @XmlTransient
-    public Collection<Teacher> getTeacherCollection() {
-        return teacherCollection;
+    public Teacher getTeacherId() {
+        return teacherId;
     }
 
-    public void setTeacherCollection(Collection<Teacher> teacherCollection) {
-        this.teacherCollection = teacherCollection;
+    public void setTeacherId(Teacher teacherId) {
+        this.teacherId = teacherId;
     }
 
     @Override
