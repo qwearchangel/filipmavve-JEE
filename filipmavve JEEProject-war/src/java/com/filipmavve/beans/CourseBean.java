@@ -41,17 +41,18 @@ public class CourseBean {
     }
     
     public void editAction(Course course) {
-        this.id = course.getId();
-        this.courseName = course.getCourseName();
-        this.points = course.getPoints();
-        this.level = course.getLevel();
-        this.teacher = null;
-        this.maxStudents = course.getMaxStudents();
-        this.info = course.getInfo();
+        id = course.getId();
+        courseName = course.getCourseName();
+        points = course.getPoints();
+        level = course.getLevel();
+        teacher = null;
+        maxStudents = course.getMaxStudents();
+        info = course.getInfo();
     }
     
     public void saveAction() {
         Course course = new Course(courseName, points, level, maxStudents, info);
+        course.setId(id);
         superInterface.getCourseSession().saveCourse(course);
     }
 

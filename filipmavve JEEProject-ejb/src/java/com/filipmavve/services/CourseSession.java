@@ -27,7 +27,8 @@ public class CourseSession implements CourseSessionLocal {
 
     @Override
     public void removeCourse(Course course) {
-        em.remove(course);
+        Course delete = em.find(Course.class, course.getId());
+        em.remove(delete);
     }
 
     @Override

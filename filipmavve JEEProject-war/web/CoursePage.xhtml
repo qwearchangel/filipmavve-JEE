@@ -27,7 +27,7 @@
                     <p:inputText id="coursePeriod" value="#{courseBean.period}"/>
                     <h:message id="coursePeriodError" for="coursePeriod" style="color:red" /> 
                     Course teacher: 
-                    <p:inputText id="courseTeacher" value="#{courseBean.teacher}"/>
+                    <p:inputText id="courseTeacher" value="under construction"/>
                     <h:message id="courseTeacherError" for="courseTeacher" style="color:red" /> 
                     Course max student: 
                     <p:inputText id="courseStudent" value="#{courseBean.maxStudents}"/>
@@ -36,8 +36,8 @@
                     <p:inputTextarea id="courseInfo" value="#{courseBean.info}" />
                     <h:message id="courseInfoError" for="courseInfo" style="color:red" /> 
                 </h:panelGrid>
-                <p:commandButton value="Add" id="courseAdd" action="#{courseBean.addCourse()}" update=":courseData:courseTable" oncomplete="PF(registerCourse).hide()" />
-                <p:commandButton value="Cancel" id="cancelRegister" onclick="PF(registerCourse).hide()" />
+                <p:commandButton value="Add" id="courseAdd" action="#{courseBean.addCourse()}" update=":courseData:courseTable" oncomplete="PF('registerCourse').hide()" />
+                <p:commandButton value="Cancel" id="cancelRegister" onclick="PF('registerCourse'').hide()" />
 
             </p:dialog>
         </h:form>
@@ -49,7 +49,7 @@
                 <f:facet name="header">
                     <h:outputText value="Logged Courses" />
                 </f:facet>
-                <p:column headerText="Course ID">
+                <p:column headerText="ID">
                     <h:outputText value="#{course.id}" />
                 </p:column>
                 <p:column headerText="Course Name">
@@ -75,45 +75,42 @@
                 </p:column>
                 <p:column headerText="Action">
                     <p:commandLink id="editCourse" value="Edit" action="#{courseBean.editAction(course)}"
-                                   update=":courseData:courseTable"/>
+                                   update=":courseData:courseTable, :editCourseDialog" onclick="PF('editCourse').show()"/>
                     <p:commandLink id="deleteCourse" value="Delete" action="#{courseBean.deleteAction(course)}"
                                    class="actionButtons" update=":courseData:courseTable" /> 
                 </p:column>
             </p:dataTable>
-
-            <p:dialog header="Edit course" widgetVar="editCourse" closeOnEscape="true">
-                <h:form id="editCourseDialog" >
-                    <h:panelGrid columns="3" cellspacing="5">
-                        Course Name: 
-                        <p:inputText id="courseName" value="#{courseBean.courseName}"/>
-                        <h:message id="courseNameError" for="courseName" style="color:red" /> 
-                        Course points: 
-                        <p:inputText id="coursePoints" value="#{courseBean.points}"/>
-                        <h:message id="coursePointsError" for="coursePoints" style="color:red" /> 
-                        Course level: 
-                        <p:inputText id="courseLevel" value="#{courseBean.level}"/>
-                        <h:message id="courseLevelError" for="courseLevel" style="color:red" /> 
-                        Course Period: 
-                        <p:inputText id="coursePeriod" value="#{courseBean.period}"/>
-                        <h:message id="coursePeriodError" for="coursePeriod" style="color:red" /> 
-                        Course teacher: 
-                        <p:inputText id="courseTeacher" value="#{courseBean.teacher}"/>
-                        <h:message id="courseTeacherError" for="courseTeacher" style="color:red" /> 
-                        Course max student: 
-                        <p:inputText id="courseStudent" value="#{courseBean.maxStudents}"/>
-                        <h:message id="courseStudentError" for="courseStudent" style="color:red" /> 
-                        Course info:
-                        <p:inputTextarea id="courseInfo" value="#{courseBean.info}" />
-                        <h:message id="courseInfoError" for="courseInfo" style="color:red" /> 
-                        <p:commandButton id="saveStudent" value="Save" action="#{courseBean.saveAction()}" oncomplete="PF('editCourse').hide();"
-                                         update=":courseData:courseTable" />
-                        <p:commandButton id="cancelEdit" value="Cancel" onclick="PF('editCourse').hide();" />
-                    </h:panelGrid>
-                </h:form>
-            </p:dialog>
-
-
-        </h:form> <br/>
+        </h:form>
+        <p:dialog header="Edit course" widgetVar="editCourse" closeOnEscape="true">
+            <h:form id="editCourseDialog" >
+                <h:panelGrid columns="3" cellspacing="5">
+                    Course Name: 
+                    <p:inputText id="courseName" value="#{courseBean.courseName}"/>
+                    <h:message id="courseNameError" for="courseName" style="color:red" /> 
+                    Course points: 
+                    <p:inputText id="coursePoints" value="#{courseBean.points}"/>
+                    <h:message id="coursePointsError" for="coursePoints" style="color:red" /> 
+                    Course level: 
+                    <p:inputText id="courseLevel" value="#{courseBean.level}"/>
+                    <h:message id="courseLevelError" for="courseLevel" style="color:red" /> 
+                    Course Period: 
+                    <p:inputText id="coursePeriod" value="#{courseBean.period}"/>
+                    <h:message id="coursePeriodError" for="coursePeriod" style="color:red" /> 
+                    Course teacher: 
+                    <p:inputText id="courseTeacher" value="#{courseBean.teacher}"/>
+                    <h:message id="courseTeacherError" for="courseTeacher" style="color:red" /> 
+                    Course max student: 
+                    <p:inputText id="courseStudent" value="#{courseBean.maxStudents}"/>
+                    <h:message id="courseStudentError" for="courseStudent" style="color:red" /> 
+                    Course info:
+                    <p:inputTextarea id="courseInfo" value="#{courseBean.info}" />
+                    <h:message id="courseInfoError" for="courseInfo" style="color:red" /> 
+                    <p:commandButton id="saveStudent" value="Save" action="#{courseBean.saveAction()}" oncomplete="PF('editCourse').hide();"
+                                     update=":courseData:courseTable" />
+                    <p:commandButton id="cancelEdit" value="Cancel" onclick="PF('editCourse').hide();" />
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
     </h:body>
 </html>
 
