@@ -6,6 +6,7 @@
 package com.filipmavve.services;
 
 import com.filipmavve.domain.Course;
+import com.filipmavve.domain.Teacher;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -45,6 +46,8 @@ public class CourseSession implements CourseSessionLocal {
     @Override
     public void addCourse(String courseName, int points, String level, String teacher, int maxStudents, String info) {
         Course add = new Course(courseName, points, level, maxStudents, info);
+        List<Teacher> addTeacher = em.createNamedQuery("Teacher.findByFirstName", Teacher.class).setParameter("firstName",teacher).getResultList();
+        add.setTeacherId(addTeacher.get(0));
         em.persist(add);
     }
 }

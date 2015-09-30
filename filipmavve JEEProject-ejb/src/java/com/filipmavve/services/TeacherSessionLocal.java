@@ -5,6 +5,8 @@
  */
 package com.filipmavve.services;
 
+import com.filipmavve.domain.Teacher;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -15,7 +17,14 @@ import javax.ejb.Local;
 public interface TeacherSessionLocal {
 
     void addTeacher(String firstname, String lastName, int phoneNr, String email,String passWord);
+    
     void editTeacher(String firstname, String lastName, int phoneNr, String email);
+    
+    List<Teacher> getTeacherById(int id);
+    
+    List<Teacher> getTeacherByFirstName(String firstName);
+    
+    List<Teacher> getAllTeachers();
     
     
 }

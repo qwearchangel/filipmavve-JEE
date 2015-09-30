@@ -23,33 +23,38 @@ public class CourseBean {
 
     @EJB
     SuperInterfaceLocal superInterface;
-    
+
     private int id;
     private String courseName;
     private int points;
     private String level;
     private String period;
-    private Teacher teacher;
+    private String teacher;
     private int maxStudents;
     private String info;
 
     public CourseBean() {
     }
-    
-    public List<Course> getCourses() {
+
+    public Iterable getCourses() {
         return superInterface.getCourseSession().getAllCourses();
     }
-    
+
     public void editAction(Course course) {
         id = course.getId();
         courseName = course.getCourseName();
         points = course.getPoints();
         level = course.getLevel();
-        teacher = null;
         maxStudents = course.getMaxStudents();
         info = course.getInfo();
+        List<Teacher> getTeacher = superInterface.getTeacherSession().getTeacherByFirstName(teacher);
+        teacher = getTeacher.get(0).getFirstName();
     }
-    
+
+    public List<Teacher> getTeachers() {
+        return superInterface.getTeacherSession().getAllTeachers();
+    }
+
     public void saveAction() {
         Course course = new Course(courseName, points, level, maxStudents, info);
         course.setId(id);
@@ -61,7 +66,8 @@ public class CourseBean {
     }
 
     public void addCourse() {
-        superInterface.getCourseSession().addCourse(courseName, points, level, level, maxStudents, info);
+//        List<Teacher> addTeacher = superInterface.getTeacherSession().getTeacherByFirstName(teacher);
+        superInterface.getCourseSession().addCourse(courseName, points, level, teacher, maxStudents, info);
     }
 
     public int getId() {
@@ -104,11 +110,11 @@ public class CourseBean {
         this.period = period;
     }
 
-    public Teacher getTeacher() {
+    public String getTeacher() {
         return teacher;
     }
 
-    public void setTeacher(Teacher teacher) {
+    public void setTeacher(String teacher) {
         this.teacher = teacher;
     }
 

@@ -6,6 +6,7 @@
 package com.filipmavve.services;
 
 import com.filipmavve.domain.Course;
+import com.filipmavve.domain.Teacher;
 import java.util.List;
 import javax.ejb.Local;
 

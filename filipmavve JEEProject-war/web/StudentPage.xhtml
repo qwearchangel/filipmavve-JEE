@@ -60,7 +60,7 @@
                 <p:commandButton class="form-module button" id="studentAddCancel" value="Cancel" onclick="PF('studentRegister').hide()" />
             </p:dialog>
         </h:form>
-        <br/>
+
         <h:form id="studentData">
             <p:commandButton value="Add Student" type="button" onclick="PF('studentRegister').show();" />
             <p:dataTable id="studentTable" value="#{studentBean.studentsList}" var="student"
@@ -107,7 +107,7 @@
                     Last Name:
                     <p:inputText id="editLastName" value="#{studentBean.lastName}" />
                     Ssn:
-                    <p:inputText id="editIdNumber" value="#{studentBean.ssn}" />
+                    <p:inputText id="editSsn" value="#{studentBean.ssn}" />
                     Email:
                     <p:inputText id="editEmail" value="#{studentBean.email}" />
                     Phone: 
