@@ -36,13 +36,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Teacher.findAll", query = "SELECT t FROM Teacher t"),
-    @NamedQuery(name = "Teacher.findById", query = "SELECT t FROM Teacher t WHERE t.teacherPK.id = :id"),
+    @NamedQuery(name = "Teacher.findById", query = "SELECT t FROM Teacher t WHERE t.id = :id"),
     @NamedQuery(name = "Teacher.findByFirstName", query = "SELECT t FROM Teacher t WHERE t.firstName = :firstName"),
     @NamedQuery(name = "Teacher.findByLastName", query = "SELECT t FROM Teacher t WHERE t.lastName = :lastName"),
     @NamedQuery(name = "Teacher.findByPhone", query = "SELECT t FROM Teacher t WHERE t.phone = :phone"),
-    @NamedQuery(name = "Teacher.findByEmail", query = "SELECT t FROM Teacher t WHERE t.email = :email"),
-    @NamedQuery(name = "Teacher.findByCourseId", query = "SELECT t FROM Teacher t WHERE t.teacherPK.courseId = :courseId")})
+    @NamedQuery(name = "Teacher.findByEmail", query = "SELECT t FROM Teacher t WHERE t.email = :email")})
+
 public class Teacher implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,6 +55,11 @@ public class Teacher implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "FIRST_NAME")
     private String firstName;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "PASSWORD")
+    private String passWord;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -81,14 +87,32 @@ public class Teacher implements Serializable {
         this.id = id;
     }
 
-    public Teacher(Integer id, String firstName, String lastName, int phone, String email) {
+    public Teacher(Integer id, String firstName, String lastName, int phone, String email, String passWord) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
         this.email = email;
+        this.passWord = passWord;
     }
 
+
+    public Teacher(String firstName, String lastName, int phone, String email, String passWord) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.email = email;
+        this.passWord = passWord;
+
+    }
+
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
+    }
     public Integer getId() {
         return id;
     }
@@ -169,7 +193,7 @@ public class Teacher implements Serializable {
 
     @Override
     public String toString() {
-        return "demio.Teacher[ id=" + id + " ]";
+        return "com.filipmavve.domain.Teacher[ id=" + id + " ]";
     }
-    
+
 }

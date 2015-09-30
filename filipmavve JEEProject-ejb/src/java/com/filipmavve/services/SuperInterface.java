@@ -15,12 +15,14 @@ import javax.ejb.Stateless;
 @Stateless
 public class SuperInterface implements SuperInterfaceLocal {
 
-      @EJB
-      CourseSessionLocal courseSession;
-      @EJB
-      StudentSessionLocal studentSession;
-      @EJB
-      LoginSessionLocal loginSession;
+    @EJB
+    CourseSessionLocal courseSession;
+    @EJB
+    StudentSessionLocal studentSession;
+    @EJB
+    LoginSessionLocal loginSession;
+    @EJB
+    TeacherSessionLocal teacherSession;
 
     @Override
     public CourseSessionLocal getCourseSession() {
@@ -36,4 +38,10 @@ public class SuperInterface implements SuperInterfaceLocal {
     public StudentSessionLocal getStudentSession() {
         return studentSession;
     }
+
+    @Override
+    public TeacherSessionLocal getTeacherSession() {
+        return teacherSession;
+    }
+
 }

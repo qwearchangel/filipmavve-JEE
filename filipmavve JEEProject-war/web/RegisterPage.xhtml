@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Register new teacher</title>
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="css" name="style.css"  />
+        <f:loadBundle basename="com.filipmavve.messages.MyMessages" var="msg"/>
+        <h:form id="registerTeacher">
+            <h:panelGrid id="registerCoursePanel" columns="3" cellpadding="5">
+                First name: 
+                <p:inputText id="teacherFirstname" required="true" value="#{registerTecherBean.firstName}"/>
+                <h:message id="firstNameError" for="teacherFirstname" style="color:red" /> 
+                Last name: 
+                <p:inputText id="teacherLastName" value="#{registerTecherBean.lastName}"/>
+                <h:message id="lastNameError" for="teacherLastName" style="color:red" /> 
+                Phone nr: 
+                <p:inputText id="phoneNr" value="#{registerTecherBean.phoneNr}"/>
+                <h:message id="phoneNrError" for="phoneNr" style="color:red" /> 
+                Email: 
+                <p:inputText id="email" value="#{registerTecherBean.email}"/>
+                <h:message id="emailError" for="email" style="color:red" /> 
+                Password: 
+                <p:password id="password" value="#{registerTecherBean.passWord}"/>
+                <h:message id="passWordError" for="passWord" style="color:red" /> 
+
+                <p:commandButton value="Add New Teacher" action="#{registerTecherBean.addTeacher()}" oncomplete="PF('registerConfirmation').show()" 
+                                 update=":registerTeacherForm"/>
+                <br/><br/>
+            </h:panelGrid>s
+        </h:form>
+
+        <h:form id="registerTeacherForm">
+            <p:dialog header="confirmation for new teacher!" widgetVar="registerConfirmation" modal="true" height="250" width="500" closeOnEscape="true">
+                <h:panelGrid id="confirmPanelGrid" columns="3" cellpadding="5">
+
+                    <h:outputText id="msgFirstName" value="#{registerTecherBean.firstName}"/>
+                    <h:outputText id="msgLastName" value="#{registerTecherBean.lastName}"/>
+                    <h:outputText id="msgEmail" value="#{registerTecherBean.email}"/>
+                    <h:outputText id="msgPhoneNr" value="#{registerTecherBean.phoneNr}"/>
+
+                </h:panelGrid>
+                <br/>
+                <p:commandButton class="form-module button" id="teacherAdd" value="Login" action="#{registerTecherBean.registerNav('Login.xhtml')}"  
+                                 oncomplete="PF('registerConfirmation').hide();" />
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>
+

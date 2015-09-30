@@ -8,7 +8,7 @@
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="style.css"  />
-        
+
         <h:form class="login">
             Username;
             <br/>
@@ -21,6 +21,7 @@
             <h:commandButton id="loginButton" value="Login" action="#{loginBean.loginAction}"
                              actionListener="#{loginBean.loginUser}">
             </h:commandButton>
+            <h:commandButton id="registerButton" value="Register" action="#{registerTecherBean.registerNav('RegisterPage.xhtml')}" />
         </h:form>
     </h:body>
 </html>

@@ -9,13 +9,13 @@ import javax.ejb.Local;
 
 /**
  *
- * @author Filip
+ * @author mavve
  */
 @Local
-public interface SuperInterfaceLocal {
+public interface TeacherSessionLocal {
+
+    void addTeacher(String firstname, String lastName, int phoneNr, String email,String passWord);
+    void editTeacher(String firstname, String lastName, int phoneNr, String email);
     
-    public CourseSessionLocal getCourseSession();
-    public LoginSessionLocal getLoginSession();
-    public StudentSessionLocal getStudentSession();
-    public TeacherSessionLocal getTeacherSession();
+    
 }
