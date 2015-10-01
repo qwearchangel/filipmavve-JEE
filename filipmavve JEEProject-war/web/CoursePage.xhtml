@@ -23,12 +23,15 @@
                     Course level: 
                     <p:inputText id="courseLevel" value="#{courseBean.level}"/>
                     <h:message id="courseLevelError" for="courseLevel" style="color:red" /> 
-                    Course Period: 
-                    <p:inputText id="coursePeriod" value="#{courseBean.period}"/>
-                    <h:message id="coursePeriodError" for="coursePeriod" style="color:red" /> 
-                    Course teacher: 
-                    <p:inputText id="courseTeacher" value="under construction"/>
-                    <h:message id="courseTeacherError" for="courseTeacher" style="color:red" /> 
+                    
+                    <p:outputLabel for="courseTeacher" value="Teacher list"/>
+                    <p:selectOneMenu id="courseTeacher" value="#{courseBean.teacher}"  >
+                        <f:selectItem itemLabel="Select Teacher"  noSelectionOption="true"/>
+                        <f:selectItems value="#{courseBean.teachers}" var="selectedTeacher"
+                                       itemLabel="#{selectedTeacher.firstName}" itemValue="#{selectedTeacher.firstName}" />
+                    </p:selectOneMenu> 
+                    
+                    <h:message id="cteacherror" for="courseTeacher" style="color: red"/>
                     Course max student: 
                     <p:inputText id="courseStudent" value="#{courseBean.maxStudents}"/>
                     <h:message id="courseStudentError" for="courseStudent" style="color:red" /> 
@@ -61,11 +64,8 @@
                 <p:column headerText="Level">
                     <h:outputText value="#{course.level}" />
                 </p:column>
-                <p:column headerText="Period">
-                    <h:outputText value="in planning"  />
-                </p:column>
                 <p:column headerText="Teacher">
-                    <h:outputText value="in planning" />
+                    <h:outputText value="#{courseBean.teacher}" />
                 </p:column>
                 <p:column headerText="Max Students">
                     <h:outputText value="#{course.maxStudents}" />
