@@ -38,9 +38,9 @@ public class TeacherSession implements TeacherSessionLocal {
     }
 
     @Override
-    public List<Teacher> getTeacherById(int id) {
+    public Teacher getTeacherById(int id) {
         return em.createNamedQuery("Teacher.findById", Teacher.class)
-                .setParameter("id", id).getResultList();
+                .setParameter("id", id).getSingleResult();
     }
 
     @Override

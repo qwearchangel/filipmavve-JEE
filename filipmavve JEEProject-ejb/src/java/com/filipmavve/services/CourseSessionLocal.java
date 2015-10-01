@@ -17,11 +17,13 @@ import javax.ejb.Local;
 @Local
 public interface CourseSessionLocal {
 
-    public void addCourse( String courseName, int points, String level, String teacher, int maxStudents, String info);
+    public void addCourse( String courseName, int points, String level, Teacher teacher, int maxStudents, String info);
 
     public void removeCourse(Course course);
 
     public void saveCourse(Course course);
 
     public List<Course> getAllCourses();
+    
+    public Course getCourseById(int id);
 }

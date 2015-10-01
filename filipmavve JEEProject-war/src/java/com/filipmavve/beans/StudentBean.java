@@ -7,7 +7,6 @@ package com.filipmavve.beans;
 
 import com.filipmavve.domain.Course;
 import com.filipmavve.domain.Student;
-import com.filipmavve.domain.Teacher;
 import com.filipmavve.services.SuperInterfaceLocal;
 import java.util.List;
 import javax.ejb.EJB;

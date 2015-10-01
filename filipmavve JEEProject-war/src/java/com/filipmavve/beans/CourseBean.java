@@ -8,6 +8,7 @@ package com.filipmavve.beans;
 import com.filipmavve.domain.Course;
 import com.filipmavve.domain.Teacher;
 import com.filipmavve.services.SuperInterfaceLocal;
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -29,7 +30,7 @@ public class CourseBean {
     private int points;
     private String level;
     private String period;
-    private String teacher;
+    private Teacher teacherId;
     private int maxStudents;
     private String info;
 
@@ -37,7 +38,8 @@ public class CourseBean {
     }
 
     public Iterable getCourses() {
-        return superInterface.getCourseSession().getAllCourses();
+        List<Course> courses = superInterface.getCourseSession().getAllCourses();
+        return courses;
     }
 
     public void editAction(Course course) {
@@ -47,14 +49,13 @@ public class CourseBean {
         level = course.getLevel();
         maxStudents = course.getMaxStudents();
         info = course.getInfo();
-        List<Teacher> getTeacher = superInterface.getTeacherSession().getTeacherByFirstName(teacher);
-        teacher = getTeacher.get(0).getFirstName();
+        teacherId = course.getTeacherId();
     }
 
-    public List<Teacher> getTeachers() {
+    public Iterable getTeachers() {
         return superInterface.getTeacherSession().getAllTeachers();
     }
-
+    
     public void saveAction() {
         Course course = new Course(courseName, points, level, maxStudents, info);
         course.setId(id);
@@ -66,8 +67,8 @@ public class CourseBean {
     }
 
     public void addCourse() {
-//        List<Teacher> addTeacher = superInterface.getTeacherSession().getTeacherByFirstName(teacher);
-        superInterface.getCourseSession().addCourse(courseName, points, level, teacher, maxStudents, info);
+        Teacher addTeacher = teacherId;
+        superInterface.getCourseSession().addCourse(courseName, points, level, addTeacher, maxStudents, info);
     }
 
     public int getId() {
@@ -110,14 +111,14 @@ public class CourseBean {
         this.period = period;
     }
 
-    public String getTeacher() {
-        return teacher;
+    public Teacher getTeacherId() {
+        return teacherId;
     }
 
-    public void setTeacher(String teacher) {
-        this.teacher = teacher;
+    public void setTeacherId(Teacher teacherId) {
+        this.teacherId = teacherId;
     }
-
+    
     public int getMaxStudents() {
         return maxStudents;
     }

@@ -44,10 +44,15 @@ public class CourseSession implements CourseSessionLocal {
         em.merge(course);    }
 
     @Override
-    public void addCourse(String courseName, int points, String level, String teacher, int maxStudents, String info) {
+    public void addCourse(String courseName, int points, String level, Teacher teacher, int maxStudents, String info) {
         Course add = new Course(courseName, points, level, maxStudents, info);
-        List<Teacher> addTeacher = em.createNamedQuery("Teacher.findByFirstName", Teacher.class).setParameter("firstName",teacher).getResultList();
-        add.setTeacherId(addTeacher.get(0));
+        Teacher addTeacher = em.find(Teacher.class, teacher.getId());
+        add.setTeacherId(addTeacher);
         em.persist(add);
+    }
+
+    @Override
+    public Course getCourseById(int id) {
+        return em.createNamedQuery("Course.findById", Course.class).setParameter("id", id).getSingleResult();
     }
 }

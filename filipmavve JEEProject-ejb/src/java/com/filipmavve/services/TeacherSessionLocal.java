@@ -20,7 +20,7 @@ public interface TeacherSessionLocal {
     
     void editTeacher(String firstname, String lastName, int phoneNr, String email);
     
-    List<Teacher> getTeacherById(int id);
+    Teacher getTeacherById(int id);
     
     List<Teacher> getTeacherByFirstName(String firstName);
     

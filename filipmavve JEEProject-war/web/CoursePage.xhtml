@@ -23,14 +23,15 @@
                     Course level: 
                     <p:inputText id="courseLevel" value="#{courseBean.level}"/>
                     <h:message id="courseLevelError" for="courseLevel" style="color:red" /> 
-                    
+
                     <p:outputLabel for="courseTeacher" value="Teacher list"/>
-                    <p:selectOneMenu id="courseTeacher" value="#{courseBean.teacher}"  >
+                    <p:selectOneMenu id="courseTeacher" value="#{courseBean.teacherId}"  >
                         <f:selectItem itemLabel="Select Teacher"  noSelectionOption="true"/>
                         <f:selectItems value="#{courseBean.teachers}" var="selectedTeacher"
-                                       itemLabel="#{selectedTeacher.firstName}" itemValue="#{selectedTeacher.firstName}" />
+                                       itemLabel="#{selectedTeacher.firstName}" itemValue="#{selectedTeacher}" />
+                        <f:converter  converterId="teacherConverter" />
                     </p:selectOneMenu> 
-                    
+
                     <h:message id="cteacherror" for="courseTeacher" style="color: red"/>
                     Course max student: 
                     <p:inputText id="courseStudent" value="#{courseBean.maxStudents}"/>
@@ -65,7 +66,10 @@
                     <h:outputText value="#{course.level}" />
                 </p:column>
                 <p:column headerText="Teacher">
-                    <h:outputText value="#{courseBean.teacher}" />
+                    <ui:repeat value="#{course.teacherId}" var="teacher" >
+                        <h:outputText value="#{teacher.firstName}" >
+                        </h:outputText>
+                    </ui:repeat>
                 </p:column>
                 <p:column headerText="Max Students">
                     <h:outputText value="#{course.maxStudents}" />
@@ -96,9 +100,14 @@
                     Course Period: 
                     <p:inputText id="coursePeriod" value="#{courseBean.period}"/>
                     <h:message id="coursePeriodError" for="coursePeriod" style="color:red" /> 
-                    Course teacher: 
-                    <p:inputText id="courseTeacher" value="#{courseBean.teacher}"/>
-                    <h:message id="courseTeacherError" for="courseTeacher" style="color:red" /> 
+                    <p:outputLabel for="courseTeacher" value="Teacher list"/>
+                    <p:selectOneMenu id="courseTeacher" value="#{courseBean.teacherId}"  >
+                        <f:selectItem itemLabel="#{courseBean.teacherId.firstName}" itemValue="#{courseBean.teacherId}" noSelectionOption="true" />
+                        <f:selectItems value="#{courseBean.teachers}" var="selectedTeacher"
+                                       itemLabel="#{selectedTeacher.firstName}" itemValue="#{selectedTeacher}" />
+                        <f:converter  converterId="teacherConverter" />
+                    </p:selectOneMenu> 
+                    <h:message id="courseTeacherError" for="courseTeacher" />
                     Course max student: 
                     <p:inputText id="courseStudent" value="#{courseBean.maxStudents}"/>
                     <h:message id="courseStudentError" for="courseStudent" style="color:red" /> 
