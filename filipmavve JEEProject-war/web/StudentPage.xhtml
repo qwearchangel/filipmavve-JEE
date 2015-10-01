@@ -14,7 +14,7 @@
         <h:outputStylesheet library="css" name="style.css"  />
         <f:loadBundle basename="com.filipmavve.messages.MyMessages" var="msg"/>
 
-        <h:form id="studentForm">
+        <h:form rendered="#{loginBean.checkLog}" id="studentForm">
             <p:dialog header="Register Student" widgetVar="studentRegister" modal="true" height="250" width="500" closeOnEscape="true">
                 <h:panelGrid id="studentPanelGrid" columns="3" cellpadding="5">
                     <h:outputText id="msgFirstName" value="#{msg.student_firstName}"/>
@@ -61,7 +61,7 @@
             </p:dialog>
         </h:form>
         <br/>
-        <h:form id="studentData">
+        <h:form rendered="#{loginBean.checkLog}" id="studentData">
             <p:commandButton value="Add Student" type="button" onclick="PF('studentRegister').show();" />
             <p:dataTable id="studentTable" value="#{studentBean.studentsList}" var="student"
                          styleClass="order-table" paginator="true" rows="20">

@@ -11,9 +11,9 @@
     </h:head>
     <h:body >
 
-        <ui:composition template="/template/navigationTemplate.xhtml">
+        <ui:composition  template="/template/navigationTemplate.xhtml">
             <ui:define name="left">
-                <h:form id="navigation">
+                <h:form rendered="#{loginBean.checkLog}" id="navigation">
                     <h:commandButton id="StudentPage" value="Student list" actionListener="#{navigationBean.goToPage}">
                     </h:commandButton>
                     <br/>
@@ -27,7 +27,7 @@
                 </h:form>
             </ui:define>
 
-            <ui:define name="content">
+            <ui:define rendered="#{loginBean.checkLog}" name="content">
                     <ui:include id="navigationContent" src="#{navigationBean.page}"/>
             </ui:define>
         </ui:composition>

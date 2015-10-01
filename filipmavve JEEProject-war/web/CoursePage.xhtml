@@ -11,7 +11,7 @@
     <h:body>
         <h:outputStylesheet library="css" name="style.css"  />
         <f:loadBundle basename="com.filipmavve.messages.MyMessages" var="msg"/>
-        <h:form id="registerCourse">
+        <h:form rendered="#{loginBean.checkLog}" id="registerCourse">
             <p:dialog header="Register Course" widgetVar="registerCourse" modal="true" height="500" width="500" closeOnEscape="true" >
                 <h:panelGrid id="registerCoursePanel" columns="3" cellpadding="5">
                     Course Name: 
@@ -42,7 +42,7 @@
             </p:dialog>
         </h:form>
 
-        <h:form id="courseData">
+        <h:form rendered="#{loginBean.checkLog}" id="courseData">
             <p:commandButton id="registerCourseButton" value="Add Course" type="button" onclick="PF('registerCourse').show();" />
             <p:dataTable id="courseTable" value="#{courseBean.courses}" var="course"
                          styleClass="order-table" paginator="true" rows="10">
@@ -82,7 +82,7 @@
             </p:dataTable>
         </h:form>
         <p:dialog header="Edit course" widgetVar="editCourse" closeOnEscape="true">
-            <h:form id="editCourseDialog" >
+            <h:form rendered="#{loginBean.checkLog}" id="editCourseDialog" >
                 <h:panelGrid columns="3" cellspacing="5">
                     Course Name: 
                     <p:inputText id="courseName" value="#{courseBean.courseName}"/>

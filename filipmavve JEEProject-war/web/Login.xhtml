@@ -18,9 +18,8 @@
             <br/>
             <h:inputSecret id="password" value="#{loginBean.password}"/>
             <br/>
-            <h:commandButton id="loginButton" value="Login" action="#{loginBean.loginAction}"
-                             actionListener="#{loginBean.loginUser}">
-            </h:commandButton>
+            <h:commandButton id="loginButton" value="Login" action="#{loginBean.checkLoggedin()}"/>
+
             <h:commandButton id="registerButton" value="Register" action="#{registerTecherBean.registerNav('RegisterPage.xhtml')}" />
         </h:form>
     </h:body>

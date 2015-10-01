@@ -5,7 +5,6 @@
  */
 package com.filipmavve.services;
 
-import com.filipmavve.domain.Login;
 import javax.ejb.Local;
 
 /**
@@ -15,6 +14,6 @@ import javax.ejb.Local;
 @Local
 public interface LoginSessionLocal {
 
-    public String validate(String userName, String password);
+    public boolean validate(String userName, String password);
     
 }

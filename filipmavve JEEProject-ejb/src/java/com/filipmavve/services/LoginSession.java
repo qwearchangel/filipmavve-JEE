@@ -5,42 +5,67 @@
  */
 package com.filipmavve.services;
 
-import com.filipmavve.domain.Login;
-import java.util.ArrayList;
-import java.util.List;
+import com.filipmavve.domain.Teacher;
 import javax.ejb.Stateless;
 
-/**
- *
- * @author Filip
- */
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 @Stateless
-public class LoginSession implements LoginSessionLocal {
+public class LoginSession implements LoginSessionLocal{
 
-    private List<Login> logins;
+    @PersistenceContext(name = "filipmavve_JEEProject-ejbPU")
+    EntityManager em;
 
-    public LoginSession() {
-        logins = new ArrayList<>();
-        logins.add(new Login("admin", "admin"));
-        logins.add(new Login("user1", "user1"));
-        logins.add(new Login("user2", "user2"));
-        logins.add(new Login("user3", "user3"));
+    private String email;
+    private String password;
+    private boolean logedin = false;
+
+
+    public boolean isLogedin() {
+        return logedin;
+    }
+
+    public void setLogedin(boolean logedin) {
+        this.logedin = logedin;
     }
     
+
+    public LoginSession() {
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
-    public String validate(String userName, String password) { 
-        boolean success = false;
-        for (Login login : logins) {
-            if (userName.equals(login.getPassword()) && password.equals(login.getPassword())) {
-                success = true;
+    public boolean validate(String email, String password) {
+        setLogedin(false);
+
+        Query q = em.createQuery("SELECT t FROM Teacher t WHERE t.email = :email AND t.passWord = :pass");
+        q.setParameter("email", email);
+        q.setParameter("pass", password);
+        try {
+            Teacher teacher = (Teacher) q.getSingleResult();
+            if (email.equalsIgnoreCase(teacher.getEmail()) && password.equals(teacher.getPassWord())) {
+                setLogedin(true);
+                return logedin;
             }
+        } catch (Exception e) {
+            setLogedin(false);
         }
-        
-        if (userName == null || !success) {
-            return "Error";
-            
-        } else {
-            return "Home";
-        }
+        return logedin;
     }
 }
