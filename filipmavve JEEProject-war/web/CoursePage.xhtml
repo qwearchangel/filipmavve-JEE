@@ -97,9 +97,6 @@
                     Course level: 
                     <p:inputText id="courseLevel" value="#{courseBean.level}"/>
                     <h:message id="courseLevelError" for="courseLevel" style="color:red" /> 
-                    Course Period: 
-                    <p:inputText id="coursePeriod" value="#{courseBean.period}"/>
-                    <h:message id="coursePeriodError" for="coursePeriod" style="color:red" /> 
                     <p:outputLabel for="courseTeacher" value="Teacher list"/>
                     <p:selectOneMenu id="courseTeacher" value="#{courseBean.teacherId}"  >
                         <f:selectItem itemLabel="#{courseBean.teacherId.firstName}" itemValue="#{courseBean.teacherId}" noSelectionOption="true" />
@@ -114,7 +111,7 @@
                     Course info:
                     <p:inputTextarea id="courseInfo" value="#{courseBean.info}" />
                     <h:message id="courseInfoError" for="courseInfo" style="color:red" /> 
-                    <p:commandButton id="saveStudent" value="Save" action="#{courseBean.saveAction()}" oncomplete="PF('editCourse').hide();"
+                    <p:commandButton id="saveStudent" value="Save" action="#{courseBean.saveEdit()}" oncomplete="PF('editCourse').hide();"
                                      update=":courseData:courseTable" />
                     <p:commandButton id="cancelEdit" value="Cancel" onclick="PF('editCourse').hide();" />
                 </h:panelGrid>

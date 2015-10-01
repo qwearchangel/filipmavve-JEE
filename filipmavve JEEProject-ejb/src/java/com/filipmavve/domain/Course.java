@@ -102,7 +102,15 @@ public class Course implements Serializable {
         this.maxStudents = maxStudents;
         this.info = info;
     }
-    
+
+    public Course(String courseName, int points, String level, int maxStudents, String info, Teacher teacherId) {
+        this.courseName = courseName;
+        this.points = points;
+        this.level = level;
+        this.maxStudents = maxStudents;
+        this.info = info;
+        this.teacherId = teacherId;
+    }
 
     public Integer getId() {
         return id;

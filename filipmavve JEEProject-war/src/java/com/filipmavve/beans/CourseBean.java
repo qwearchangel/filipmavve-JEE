@@ -56,8 +56,8 @@ public class CourseBean {
         return superInterface.getTeacherSession().getAllTeachers();
     }
     
-    public void saveAction() {
-        Course course = new Course(courseName, points, level, maxStudents, info);
+    public void saveEdit() {
+        Course course = new Course(courseName, points, level, maxStudents, info, teacherId);
         course.setId(id);
         superInterface.getCourseSession().saveCourse(course);
     }
