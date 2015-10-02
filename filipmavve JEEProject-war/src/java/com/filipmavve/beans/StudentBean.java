@@ -8,10 +8,12 @@ package com.filipmavve.beans;
 import com.filipmavve.domain.Course;
 import com.filipmavve.domain.Student;
 import com.filipmavve.services.SuperInterfaceLocal;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.model.DualListModel;
 
 /**
  *
@@ -31,7 +33,13 @@ public class StudentBean {
     String ssn;
     int phone;
 
+    List<Course> source = new ArrayList<>();
+    List<Course> target = new ArrayList<>();
+
+    private DualListModel<Course> pickCourses;
+
     public StudentBean() {
+
     }
 
     public Iterable getCourses() {
@@ -43,7 +51,7 @@ public class StudentBean {
     }
 
     public void addStudent() {
-        superInterface.getStudentSession().addStudent(firstName, lastName, ssn, email, phone);
+        superInterface.getStudentSession().addStudent(firstName, lastName, ssn, email, phone, target);
     }
 
     public void deleteAction(Student student) {
@@ -118,5 +126,18 @@ public class StudentBean {
 
     public void setPhone(int phone) {
         this.phone = phone;
+    }
+
+    public DualListModel<Course> getPickCourses() {
+
+        source = superInterface.getCourseSession().getAllCourses();
+
+        pickCourses = new DualListModel<>(source, target);
+        return pickCourses;
+    }
+
+    public void setPickCourses(DualListModel<Course> pickCourses) {
+        target = pickCourses.getTarget();
+        this.pickCourses = pickCourses;
     }
 }

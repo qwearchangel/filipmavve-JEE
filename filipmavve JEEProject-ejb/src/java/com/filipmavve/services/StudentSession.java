@@ -50,8 +50,9 @@ public class StudentSession implements StudentSessionLocal {
     }
 
     @Override
-    public void addStudent(String firstName, String lastName, String ssn, String email, int phone) {
+    public void addStudent(String firstName, String lastName, String ssn, String email, int phone, List<Course> courses) {
         Student newStudent = new Student(firstName, lastName, email, ssn, phone);
+        newStudent.setCourseCollection(courses);
         em.persist(newStudent);
     }
 

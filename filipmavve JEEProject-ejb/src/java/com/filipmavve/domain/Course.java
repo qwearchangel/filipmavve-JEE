@@ -71,10 +71,7 @@ public class Course implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "INFO")
     private String info;
-    @JoinTable(name = "student_has_course", joinColumns = {
-        @JoinColumn(name = "COURSE_ID", referencedColumnName = "ID")}, inverseJoinColumns = {
-        @JoinColumn(name = "STUDENT_ID", referencedColumnName = "ID")})
-    @ManyToMany
+    @ManyToMany(mappedBy = "courseCollection")
     private Collection<Student> studentCollection;
     @JoinColumn(name = "TEACHER_ID", referencedColumnName = "ID")
     @ManyToOne(optional = false)

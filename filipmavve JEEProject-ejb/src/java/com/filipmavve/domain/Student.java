@@ -71,7 +71,10 @@ public class Student implements Serializable {
     private Integer phone;
     @ManyToMany(mappedBy = "studentCollection")
     private Collection<Attendence> attendenceCollection;
-    @ManyToMany(mappedBy = "studentCollection")
+    @JoinTable(name = "student_has_course", joinColumns = {
+        @JoinColumn(name = "STUDENT_ID", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "COURSE_ID", referencedColumnName = "ID")})
+    @ManyToMany
     private Collection<Course> courseCollection;
     @JoinTable(name = "student_has_teacher")
     @JoinColumns( {
