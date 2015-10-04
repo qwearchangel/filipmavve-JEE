@@ -28,13 +28,10 @@ public class StudentBean {
 
     int id;
     String firstName, lastName;
-    Course course;
+    List<Course> course;
     String email;
     String ssn;
     int phone;
-
-    List<Course> source = new ArrayList<>();
-    List<Course> target = new ArrayList<>();
 
     private DualListModel<Course> pickCourses;
 
@@ -51,7 +48,7 @@ public class StudentBean {
     }
 
     public void addStudent() {
-        superInterface.getStudentSession().addStudent(firstName, lastName, ssn, email, phone, target);
+        superInterface.getStudentSession().addStudent(firstName, lastName, ssn, email, phone, course);
     }
 
     public void deleteAction(Student student) {
@@ -59,6 +56,7 @@ public class StudentBean {
     }
 
     public void saveAction() {
+        course = pickCourses.getTarget();
         Student student = new Student(firstName, lastName, email, ssn, phone);
         student.setId(id);
         superInterface.getStudentSession().saveStudent(student);
@@ -70,6 +68,7 @@ public class StudentBean {
         lastName = student.getLastName();
         email = student.getEmail();
         ssn = student.getSsn();
+        course = (List<Course>) student.getCourseCollection();
     }
 
     public String getFirstName() {
@@ -88,11 +87,11 @@ public class StudentBean {
         this.lastName = lastName;
     }
 
-    public Course getCourse() {
+    public List<Course> getCourse() {
         return course;
     }
 
-    public void setCourse(Course course) {
+    public void setCourse(List<Course> course) {
         this.course = course;
     }
 
@@ -130,14 +129,14 @@ public class StudentBean {
 
     public DualListModel<Course> getPickCourses() {
 
-        source = superInterface.getCourseSession().getAllCourses();
+        List<Course> source = superInterface.getCourseSession().getAllCourses();
+        List<Course> target = new ArrayList<>();
 
         pickCourses = new DualListModel<>(source, target);
         return pickCourses;
     }
 
     public void setPickCourses(DualListModel<Course> pickCourses) {
-        target = pickCourses.getTarget();
         this.pickCourses = pickCourses;
     }
 }
