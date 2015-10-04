@@ -36,10 +36,10 @@ public class StudentBean {
     private DualListModel<Course> pickCourses;
 
     public StudentBean() {
-
+        course = new ArrayList<>();
     }
 
-    public Iterable getCourses() {
+    public List<Course> getCourses() {
         return superInterface.getCourseSession().getAllCourses();
     }
 
@@ -48,7 +48,7 @@ public class StudentBean {
     }
 
     public void addStudent() {
-        superInterface.getStudentSession().addStudent(firstName, lastName, ssn, email, phone, course);
+        superInterface.getStudentSession().addStudent(firstName, lastName, ssn, email, phone, pickCourses.getTarget());
     }
 
     public void deleteAction(Student student) {
@@ -59,6 +59,7 @@ public class StudentBean {
         course = pickCourses.getTarget();
         Student student = new Student(firstName, lastName, email, ssn, phone);
         student.setId(id);
+        student.setCourseCollection(course);
         superInterface.getStudentSession().saveStudent(student);
     }
 
@@ -68,7 +69,8 @@ public class StudentBean {
         lastName = student.getLastName();
         email = student.getEmail();
         ssn = student.getSsn();
-        course = (List<Course>) student.getCourseCollection();
+        course.clear();
+        course.addAll(student.getCourseCollection());
     }
 
     public String getFirstName() {
@@ -129,9 +131,8 @@ public class StudentBean {
 
     public DualListModel<Course> getPickCourses() {
 
-        List<Course> source = superInterface.getCourseSession().getAllCourses();
+        List<Course> source = getCourses();
         List<Course> target = new ArrayList<>();
-
         pickCourses = new DualListModel<>(source, target);
         return pickCourses;
     }

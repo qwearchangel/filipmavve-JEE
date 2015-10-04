@@ -48,14 +48,14 @@
                     <p:inputText id="studentPhone" value="#{studentBean.phone}"></p:inputText>
                     <h:message id="phoneError" for="studentPhone" style="color: red" />
                 </h:panelGrid><br/>
-                
+
                 <p:pickList id="studentCoursePick" value="#{studentBean.pickCourses}"
                             var="course" itemLabel="#{course.courseName}" itemValue="#{course}" 
                             converter="courseConverter" showSourceFilter="true"
                             showTargetFilter="true" filterMatchMode="contains" style="border: #000000 solid 2px">
                     <f:facet name="targetCaption">Selected</f:facet>
                     <f:facet name="sourceCaption">All Courses</f:facet>
-                    
+
                 </p:pickList>
                 <br/>
                 <p:commandButton class="form-module button" id="studentAdd" value="Add Student" update=":studentData:studentTable" 
@@ -117,10 +117,21 @@
                     <p:inputText id="editEmail" value="#{studentBean.email}" />
                     Phone: 
                     <p:inputText id="editPhone" value="#{studentBean.phone}" />
-                    <p:commandButton id="saveStudent" value="Save" action="#{studentBean.saveAction()}" oncomplete="PF('editStudent').hide();"
-                                     update=":studentData:studentTable" />
-                    <p:commandButton id="cancelEdit" value="Cancel" onclick="PF('editStudent').hide();" />
                 </h:panelGrid>
+                <p:pickList id="studentCoursePick" value="#{studentBean.pickCourses}"
+                            var="course" itemLabel="#{course.courseName}" itemValue="#{course}" 
+                            converter="courseConverter" showSourceFilter="true"
+                            showTargetFilter="true" filterMatchMode="contains" style="border: #000000 solid 2px">
+                    <f:facet name="targetCaption">Selected</f:facet>
+                    <f:facet name="sourceCaption">All Courses</f:facet>
+
+                </p:pickList>
+                <br/>
+
+                <p:commandButton id="saveStudent" value="Save" action="#{studentBean.saveAction()}" oncomplete="PF('editStudent').hide();"
+                                 update=":studentData:studentTable" />
+                <p:commandButton id="cancelEdit" value="Cancel" onclick="PF('editStudent').hide();" />
+
             </h:form>
         </p:dialog>
     </h:body>
