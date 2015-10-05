@@ -5,6 +5,8 @@
  */
 package com.filipmavve.services;
 
+import com.filipmavve.domain.Student;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -18,4 +20,5 @@ public interface SuperInterfaceLocal {
     public LoginSessionLocal getLoginSession();
     public StudentSessionLocal getStudentSession();
     public TeacherSessionLocal getTeacherSession();
+
 }

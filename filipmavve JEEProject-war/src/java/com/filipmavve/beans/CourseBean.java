@@ -6,8 +6,10 @@
 package com.filipmavve.beans;
 
 import com.filipmavve.domain.Course;
+import com.filipmavve.domain.Student;
 import com.filipmavve.domain.Teacher;
 import com.filipmavve.services.SuperInterfaceLocal;
+import static java.util.Collections.list;
 import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
@@ -33,14 +35,16 @@ public class CourseBean {
     private Teacher teacherId;
     private int maxStudents;
     private String info;
-
     public CourseBean() {
     }
 
+    
+    
     public Iterable getCourses() {
         List<Course> courses = superInterface.getCourseSession().getAllCourses();
         return courses;
     }
+
 
     public void editAction(Course course) {
         id = course.getId();
@@ -54,6 +58,10 @@ public class CourseBean {
 
     public Iterable getTeachers() {
         return superInterface.getTeacherSession().getAllTeachers();
+    }
+    
+    public Iterable getStudents(){
+        return superInterface.getStudentSession().getAllStudents();
     }
     
     public void saveEdit() {
@@ -70,6 +78,7 @@ public class CourseBean {
         Teacher addTeacher = teacherId;
         superInterface.getCourseSession().addCourse(courseName, points, level, addTeacher, maxStudents, info);
     }
+    
 
     public int getId() {
         return id;

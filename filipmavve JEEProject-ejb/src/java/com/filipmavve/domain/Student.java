@@ -40,6 +40,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Student.findBySsn", query = "SELECT s FROM Student s WHERE s.ssn = :ssn"),
     @NamedQuery(name = "Student.findByEmail", query = "SELECT s FROM Student s WHERE s.email = :email"),
     @NamedQuery(name = "Student.findByPhone", query = "SELECT s FROM Student s WHERE s.phone = :phone")})
+   // @NamedQuery(name = "Student.findFromCourse", query = "SELECT First_Name, Last_Name FROM Student,student_has_course,"
+       //     + " Course WHERE student_id = student.id AND Course_id = course.id AND course_name = :course_name " )})
+
+//SELECT * FROM Student WHERE student.id IN( SELECT student_id FROM  student_has_course WHERE course_id IN(SELECT course.id FROM course WHERE course_name=  "java" ) )
+
+
+
 public class Student implements Serializable {
 
     private static final long serialVersionUID = 1L;

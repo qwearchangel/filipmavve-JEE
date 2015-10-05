@@ -16,7 +16,7 @@ import javax.faces.event.ActionEvent;
 @ManagedBean
 @ViewScoped
 public class navigationBean {
-    
+
     String page = "Login.xhtml";
 
     /**
@@ -24,15 +24,21 @@ public class navigationBean {
      */
     public navigationBean() {
     }
-    
+
     public void goToPage(ActionEvent event) {
         String id = event.getComponent().getId();
         switch (id) {
-            case "StudentPage": page = "StudentPage.xhtml";
+            case "StudentPage":
+                page = "StudentPage.xhtml";
                 break;
-            case "CoursePage": page = "CoursePage.xhtml";
+            case "CoursePage":
+                page = "CoursePage.xhtml";
                 break;
-            default: page = "Login.xhtml";
+            case "AttPage":
+                page = "AttendancePage.xhtml";
+                break;
+            default:
+                page = "Login.xhtml";
                 break;
         }
     }
@@ -40,6 +46,5 @@ public class navigationBean {
     public String getPage() {
         return page;
     }
-    
-    
+
 }

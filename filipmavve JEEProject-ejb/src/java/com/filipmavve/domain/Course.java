@@ -42,6 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Course.findByPoints", query = "SELECT c FROM Course c WHERE c.points = :points"),
     @NamedQuery(name = "Course.findByLevel", query = "SELECT c FROM Course c WHERE c.level = :level"),
     @NamedQuery(name = "Course.findByMaxStudents", query = "SELECT c FROM Course c WHERE c.maxStudents = :maxStudents")})
+
 public class Course implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
