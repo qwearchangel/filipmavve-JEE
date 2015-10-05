@@ -14,6 +14,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 
 /**
  *
@@ -29,19 +31,34 @@ public class AttendenceBean {
     private Date date;
     private int courseId;
     private List<Student> students;
+    private List<Student> checkedStudents;
 
     public AttendenceBean() {
         students = new ArrayList<>();
+        checkedStudents = new ArrayList<>();
     }
 
     public Iterable getCourses() {
         return superInterface.getCourseSession().getAllCourses();
     }
-    
+
     public void applyStudentsByCourseId() {
         Course course = superInterface.getCourseSession().getCourseById(courseId);
         students = (List<Student>) course.getStudentCollection();
     }
+
+//    public void toList(int studentId) {
+//        
+//        if (!checkedStudents.contains(studentId)) {
+//            checkedStudents.add(studentId);
+//        } else {
+//            checkedStudents.remove(studentId);
+//        }
+//    }
+    public void addAttendence() {
+        superInterface.getAttendenceSession().addAttendence(checkedStudents);
+    }
+
     //Getter and Setters
     public Date getDate() {
         return date;
@@ -65,5 +82,13 @@ public class AttendenceBean {
 
     public void setCourseId(int courseId) {
         this.courseId = courseId;
+    }
+
+    public List<Student> getCheckedStudents() {
+        return checkedStudents;
+    }
+
+    public void setCheckedStudents(List<Student> checkedStudents) {
+        this.checkedStudents = checkedStudents;
     }
 }

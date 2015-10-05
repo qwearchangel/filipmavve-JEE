@@ -56,6 +56,10 @@ public class Attendence implements Serializable {
     public Attendence() {
     }
 
+    public Attendence(String date) {
+        this.date = date;
+    }
+
     public Attendence(Integer id) {
         this.id = id;
     }

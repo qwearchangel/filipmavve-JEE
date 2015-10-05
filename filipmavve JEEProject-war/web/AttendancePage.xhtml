@@ -24,7 +24,8 @@
 
         <h:form id="attDataForm" >
             <p:dataTable id="attDataTable" value="#{attendenceBean.students}" var="student"
-                         styleClass="order-table" >
+                         styleClass="order-table" selection="#{attendenceBean.checkedStudents}"
+                         rowKey="#{student.id}">
                 <f:facet name="header">
                     <h:outputText value="Course Attendence" />
                 </f:facet>
@@ -44,11 +45,10 @@
                     <p:column headerText="Email">
                         <h:outputText value="#{student.email}"/>
                     </p:column>
-                <p:column headerText="Not attended">
-                    <p:selectBooleanCheckbox value="" />
-                </p:column>
+                <p:column headerText="Not here" selectionMode="multiple" style="text-align:center"/>
             </p:dataTable>
 
+            <p:commandButton id="attConfirmButton" value="Confirm Attendance" action="#{attendenceBean.addAttendence()}"/>
 
         </h:form>
     </h:body>

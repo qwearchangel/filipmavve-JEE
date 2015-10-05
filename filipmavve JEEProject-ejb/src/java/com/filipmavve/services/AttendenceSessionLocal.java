@@ -17,5 +17,5 @@ import javax.ejb.Local;
 @Local
 public interface AttendenceSessionLocal {
     
-    public void addAttendence(Date date, List<Student> students);
+    public void addAttendence(List<Student> student);
 }
