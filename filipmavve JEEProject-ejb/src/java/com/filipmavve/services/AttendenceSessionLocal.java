@@ -6,6 +6,7 @@
 package com.filipmavve.services;
 
 import com.filipmavve.domain.Student;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,12 +15,7 @@ import javax.ejb.Local;
  * @author Filip
  */
 @Local
-public interface SuperInterfaceLocal {
+public interface AttendenceSessionLocal {
     
-    public CourseSessionLocal getCourseSession();
-    public LoginSessionLocal getLoginSession();
-    public StudentSessionLocal getStudentSession();
-    public TeacherSessionLocal getTeacherSession();
-    public AttendenceSessionLocal getAttendenceSession();
-
+    public void addAttendence(Date date, List<Student> students);
 }

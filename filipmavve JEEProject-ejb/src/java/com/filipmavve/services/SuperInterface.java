@@ -26,6 +26,8 @@ public class SuperInterface implements SuperInterfaceLocal {
     LoginSessionLocal loginSession;
     @EJB
     TeacherSessionLocal teacherSession;
+    @EJB
+    AttendenceSessionLocal attendenceSession;
 
     @Override
     public CourseSessionLocal getCourseSession() {
@@ -45,6 +47,11 @@ public class SuperInterface implements SuperInterfaceLocal {
     @Override
     public TeacherSessionLocal getTeacherSession() {
         return teacherSession;
+    }
+
+    @Override
+    public AttendenceSessionLocal getAttendenceSession() {
+        return attendenceSession;
     }
 
 

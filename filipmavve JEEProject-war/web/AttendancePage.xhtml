@@ -9,38 +9,47 @@
         <title>Attendance Page</title>
     </h:head>
     <h:body>
-        <h:form>
-            <h:panelGrid columns="2" cellpadding="5">
-                <p:outputLabel for="console" value="Basic:" />
-                <p:selectOneMenu id="console" style="width:225px">
-                    <f:selectItem itemLabel="Select course" itemDisabled="true" />
-                    <f:selectItems value="#{courseBean.courses}" var="selectedCourse" itemLabel="#{selectedCourse.courseName}" 
-                                   itemValue="#{selectedCourse.courseName}"/>
+        <h:form id="attCourseSelect">
+            <h:panelGrid columns="3" cellpadding="5">
+                <p:selectOneMenu id="attCourse" value="#{attendenceBean.courseId}"  >
+                        <f:selectItem itemLabel="Select Course"  noSelectionOption="true"/>
+                        <f:selectItems value="#{attendenceBean.courses}" var="selectedCourse"
+                                       itemLabel="#{selectedCourse.courseName}" itemValue="#{selectedCourse.id}" />
+                    </p:selectOneMenu> 
 
-                </p:selectOneMenu>
-                <p:commandButton value="Select Course" action="#{courseBean.getStudentsByCourseID(selectedCourse.courseName)}" oncomplete="PF('attForm').show()" 
-                                 update=":attForm"/>           
+                <p:commandButton id="getCourseAttendence" value="Get student on course"
+                                 action="#{attendenceBean.applyStudentsByCourseId()}" update=":attDataForm:attDataTable" />
             </h:panelGrid>
         </h:form>
-        
-          <h:form id="attForm">
-            <p:dialog header="confirmation for new teacher!" widgetVar="attForm" modal="true" height="250" width="500" closeOnEscape="true">
-                <h:panelGrid id="confirmPanelGrid" columns="3" cellpadding="5">
 
-                    <h:outputText id="msgFirstName" value="#{registerTecherBean.firstName}"/>
-                    <br></br>
-                    <h:outputText id="msgLastName" value="#{registerTecherBean.lastName}"/>
-                    <br></br>
-                    <h:outputText id="msgEmail" value="#{registerTecherBean.email}"/>
-                    <br></br>
-                    <h:outputText id="msgPhoneNr" value="#{registerTecherBean.phoneNr}"/>
-                    <br></br>
+        <h:form id="attDataForm" >
+            <p:dataTable id="attDataTable" value="#{attendenceBean.students}" var="student"
+                         styleClass="order-table" >
+                <f:facet name="header">
+                    <h:outputText value="Course Attendence" />
+                </f:facet>
 
-                </h:panelGrid>
-                <br/>
-                <p:commandButton class="form-module button" id="teacherAdd" value="Login" action="#{registerTecherBean.registerNav('Login.xhtml')}"  
-                                 oncomplete="PF('registerConfirmation').hide();" />
-            </p:dialog>
+                    <p:column headerText="First name">
+                        <h:outputText value="#{student.firstName}"/>
+                    </p:column>
+
+                    <p:column headerText="Last name">
+                        <h:outputText value="#{student.lastName}"/>
+                    </p:column>
+
+                    <p:column headerText="Ssn">
+                        <h:outputText value="#{student.ssn}"/>
+                    </p:column>
+
+                    <p:column headerText="Email">
+                        <h:outputText value="#{student.email}"/>
+                    </p:column>
+                <p:column headerText="Not attended">
+                    <p:selectBooleanCheckbox value="" />
+                </p:column>
+            </p:dataTable>
+
+
         </h:form>
     </h:body>
 </html>
