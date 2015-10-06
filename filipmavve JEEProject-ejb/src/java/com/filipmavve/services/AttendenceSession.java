@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -35,6 +36,13 @@ public class AttendenceSession implements AttendenceSessionLocal {
         
         
         return date.toString();
+    }
+
+    @Override
+    public List<Attendence> getAllAttendence() {
+        TypedQuery<Attendence> query = em.createNamedQuery("Attendence.findAll", Attendence.class);
+        List<Attendence> result = query.getResultList();
+        return result;
     }
     
 

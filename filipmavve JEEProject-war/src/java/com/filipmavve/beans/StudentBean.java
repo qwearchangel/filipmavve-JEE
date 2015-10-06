@@ -7,6 +7,7 @@ package com.filipmavve.beans;
 
 import com.filipmavve.domain.Course;
 import com.filipmavve.domain.Student;
+import com.filipmavve.domain.Teacher;
 import com.filipmavve.services.SuperInterfaceLocal;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,11 +56,19 @@ public class StudentBean {
         superInterface.getStudentSession().removeStudent(student);
     }
 
-    public void saveAction() {
+    public void saveEditAction() {
         course = pickCourses.getTarget();
         Student student = new Student(firstName, lastName, email, ssn, phone);
         student.setId(id);
         student.setCourseCollection(course);
+        List<Teacher> teachers = new ArrayList<>();
+        for(Course c : course) {
+            Teacher teach = c.getTeacherId();
+            if (!teachers.contains(teach)) {
+                teachers.add(teach);
+            }
+        }
+        student.setTeacherCollection(teachers);
         superInterface.getStudentSession().saveStudent(student);
     }
 

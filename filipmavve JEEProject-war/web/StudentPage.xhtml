@@ -128,7 +128,7 @@
                 </p:pickList>
                 <br/>
 
-                <p:commandButton id="saveStudent" value="Save" action="#{studentBean.saveAction()}" oncomplete="PF('editStudent').hide();"
+                <p:commandButton id="saveStudent" value="Save" action="#{studentBean.saveEditAction()}" oncomplete="PF('editStudent').hide();"
                                  update=":studentData:studentTable" />
                 <p:commandButton id="cancelEdit" value="Cancel" onclick="PF('editStudent').hide();" />
 

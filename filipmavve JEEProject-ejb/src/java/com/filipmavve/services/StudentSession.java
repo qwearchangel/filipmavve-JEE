@@ -7,6 +7,8 @@ package com.filipmavve.services;
 
 import com.filipmavve.domain.Course;
 import com.filipmavve.domain.Student;
+import com.filipmavve.domain.Teacher;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -53,6 +55,14 @@ public class StudentSession implements StudentSessionLocal {
     public void addStudent(String firstName, String lastName, String ssn, String email, int phone, List<Course> courses) {
         Student newStudent = new Student(firstName, lastName, email, ssn, phone);
         newStudent.setCourseCollection(courses);
+        List<Teacher> teachers = new ArrayList<>();
+        for (Course c : courses) {
+            Teacher teach = c.getTeacherId();
+            if (!teachers.contains(teach)) {
+                teachers.add(teach);
+            }
+        }
+        newStudent.setTeacherCollection(teachers);
         em.persist(newStudent);
     }
 
