@@ -6,5 +6,6 @@
     <!--lifecycle>
         <phase-listener>com.filipmavve.listeners.startupContextListener</phase-listener>
     </lifecycle-->
+    
 </faces-config>
     

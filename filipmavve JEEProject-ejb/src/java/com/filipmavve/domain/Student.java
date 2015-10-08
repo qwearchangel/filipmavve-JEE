@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -76,6 +77,9 @@ public class Student implements Serializable {
     private String email;
     @Column(name = "PHONE")
     private Integer phone;
+    @Lob
+    @Column(name = "PICTURE")
+    private byte[] picture;
     @ManyToMany(mappedBy = "studentCollection")
     private Collection<Attendence> attendenceCollection;
     @JoinTable(name = "student_has_course", joinColumns = {
@@ -186,6 +190,14 @@ public class Student implements Serializable {
 
     public void setTeacherCollection(Collection<Teacher> teacherCollection) {
         this.teacherCollection = teacherCollection;
+    }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
     }
 
     @Override

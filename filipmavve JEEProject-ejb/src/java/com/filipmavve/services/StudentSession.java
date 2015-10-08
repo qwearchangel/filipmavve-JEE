@@ -8,12 +8,21 @@ package com.filipmavve.services;
 import com.filipmavve.domain.Course;
 import com.filipmavve.domain.Student;
 import com.filipmavve.domain.Teacher;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.servlet.http.Part;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -42,7 +51,7 @@ public class StudentSession implements StudentSessionLocal {
     }
 
     @Override
-    public void saveStudent(Student student) {
+    public void saveEditStudent(Student student) {
         Student save = student;
         em.merge(save);
     }
@@ -52,7 +61,7 @@ public class StudentSession implements StudentSessionLocal {
     }
 
     @Override
-    public void addStudent(String firstName, String lastName, String ssn, String email, int phone, List<Course> courses) {
+    public void addStudent(String firstName, String lastName, String ssn, String email, int phone, List<Course> courses, UploadedFile uploadedFile) {
         Student newStudent = new Student(firstName, lastName, email, ssn, phone);
         newStudent.setCourseCollection(courses);
         List<Teacher> teachers = new ArrayList<>();
@@ -62,8 +71,41 @@ public class StudentSession implements StudentSessionLocal {
                 teachers.add(teach);
             }
         }
+        try {
+            newStudent.setPicture(getFileContents(uploadedFile.getInputstream()));
+        } catch (IOException ex) {
+            Logger.getLogger(StudentSession.class.getName()).log(Level.SEVERE, null, ex);
+        }
         newStudent.setTeacherCollection(teachers);
         em.persist(newStudent);
     }
 
+    private byte[] getFileContents(InputStream in) {
+        byte[] bytes = null;
+        try {
+            // write the inputStream to a FileOutputStream            
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            int read = 0;
+            bytes = new byte[1024];
+
+            while ((read = in.read(bytes)) != -1) {
+                bos.write(bytes, 0, read);
+            }
+            bytes = bos.toByteArray();
+            in.close();
+            in = null;
+            bos.flush();
+            bos.close();
+            bos = null;
+            System.out.println("New file created!");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return bytes;
+    }
+
+    @Override
+    public Student getStudentById(int id) {
+        return em.createNamedQuery("Student.findById", Student.class).setParameter("id", id).getSingleResult();
+    }
 }

@@ -9,6 +9,8 @@ import com.filipmavve.domain.Course;
 import com.filipmavve.domain.Student;
 import java.util.List;
 import javax.ejb.Local;
+import javax.servlet.http.Part;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -17,12 +19,14 @@ import javax.ejb.Local;
 @Local
 public interface StudentSessionLocal {
 
-    void addStudent(String firstName, String lastName, String ssn, String email, int phone, List<Course> courses);
+    void addStudent(String firstName, String lastName, String ssn, String email, int phone, List<Course> courses, UploadedFile uploadedFile);
 
     void removeStudent(Student student);
 
     List<Student> getAllStudents();
     
-    void saveStudent(Student student);
+    void saveEditStudent(Student student);
+    
+    Student getStudentById(int id);
     
 }
