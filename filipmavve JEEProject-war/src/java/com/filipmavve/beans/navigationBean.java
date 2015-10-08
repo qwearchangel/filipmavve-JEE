@@ -11,6 +11,9 @@ import javax.faces.event.ActionEvent;
 
 /**
  *
+ * Navigation HQ
+ * (For left side of template)
+ * 
  * @author Filip
  */
 @ManagedBean

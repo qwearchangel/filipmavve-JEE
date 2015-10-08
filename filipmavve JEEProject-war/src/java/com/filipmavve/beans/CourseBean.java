@@ -6,11 +6,8 @@
 package com.filipmavve.beans;
 
 import com.filipmavve.domain.Course;
-import com.filipmavve.domain.Student;
 import com.filipmavve.domain.Teacher;
 import com.filipmavve.services.SuperInterfaceLocal;
-import static java.util.Collections.list;
-import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -45,7 +42,11 @@ public class CourseBean {
         return courses;
     }
 
-
+    /**
+     * Temporarly saves the course data in bean
+     * 
+     * @param course 
+     */
     public void editAction(Course course) {
         id = course.getId();
         courseName = course.getCourseName();
@@ -63,7 +64,9 @@ public class CourseBean {
     public Iterable getStudents(){
         return superInterface.getStudentSession().getAllStudents();
     }
-    
+    /**
+     * Saves the edited course in DB
+     */
     public void saveEdit() {
         Course course = new Course(courseName, points, level, maxStudents, info, teacherId);
         course.setId(id);
@@ -79,6 +82,7 @@ public class CourseBean {
         superInterface.getCourseSession().addCourse(courseName, points, level, addTeacher, maxStudents, info);
     }
     
+    //SETTERS AND GETTERS
 
     public int getId() {
         return id;

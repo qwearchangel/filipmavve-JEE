@@ -5,20 +5,20 @@
  */
 package com.filipmavve.beans;
 
-import com.filipmavve.services.SuperInterface;
 import com.filipmavve.services.SuperInterfaceLocal;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 
 /**
+ * The ManagedBean for teacher.
  *
  * @author mavve
  */
 @ManagedBean
 @ViewScoped
 public class RegisterTecherBean {
+
     @EJB
     SuperInterfaceLocal superInterface;
     private String firstName;
@@ -27,30 +27,23 @@ public class RegisterTecherBean {
     private String email;
     private String passWord;
 
-    public String getPassWord() {
-        return passWord;
-    }
-
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
-    }
-    
-
     /**
      * Creates a new instance of RegisterBean
      */
     public RegisterTecherBean() {
     }
-    
-    public String registerNav(String pageID){
+
+    public String registerNav(String pageID) {
         return pageID;
     }
-    
-    public void addTeacher(){
+
+    public void addTeacher() {
         superInterface.getTeacherSession().addTeacher(firstName, lastName, phoneNr, email, passWord);
-        
+
     }
+
     //setter & getter methods
+
     public String getFirstName() {
         return firstName;
     }
@@ -82,5 +75,13 @@ public class RegisterTecherBean {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
+    }
+
 }

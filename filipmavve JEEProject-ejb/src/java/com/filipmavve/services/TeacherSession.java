@@ -33,10 +33,6 @@ public class TeacherSession implements TeacherSessionLocal {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void persist(Object object) {
-        em.persist(object);
-    }
-
     @Override
     public Teacher getTeacherById(int id) {
         return em.createNamedQuery("Teacher.findById", Teacher.class)

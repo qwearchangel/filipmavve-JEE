@@ -17,6 +17,7 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.model.DualListModel;
 
 /**
+ * A ManagedBean for the student page
  *
  * @author Filip
  */
@@ -51,27 +52,16 @@ public class StudentBean {
     public void addStudent() {
         superInterface.getStudentSession().addStudent(firstName, lastName, ssn, email, phone, pickCourses.getTarget());
     }
-
+    
     public void deleteAction(Student student) {
         superInterface.getStudentSession().removeStudent(student);
     }
-
-    public void saveEditAction() {
-        course = pickCourses.getTarget();
-        Student student = new Student(firstName, lastName, email, ssn, phone);
-        student.setId(id);
-        student.setCourseCollection(course);
-        List<Teacher> teachers = new ArrayList<>();
-        for(Course c : course) {
-            Teacher teach = c.getTeacherId();
-            if (!teachers.contains(teach)) {
-                teachers.add(teach);
-            }
-        }
-        student.setTeacherCollection(teachers);
-        superInterface.getStudentSession().saveStudent(student);
-    }
-
+    
+    /**
+     * The student data is temporarly saved in this bean when edit button is pressed.
+     * 
+     * @param student 
+     */
     public void editAction(Student student) {
         id = student.getId();
         firstName = student.getFirstName();
@@ -80,6 +70,44 @@ public class StudentBean {
         ssn = student.getSsn();
         course.clear();
         course.addAll(student.getCourseCollection());
+    }
+    
+    /**
+     * Saves the edited data.
+     */
+    public void saveEditAction() {
+        course = pickCourses.getTarget();
+        Student student = new Student(firstName, lastName, email, ssn, phone);
+        student.setId(id);
+        student.setCourseCollection(course);
+        List<Teacher> teachers = new ArrayList<>();
+        for (Course c : course) {
+            Teacher teach = c.getTeacherId();
+            if (!teachers.contains(teach)) {
+                teachers.add(teach);
+            }
+        }
+        student.setTeacherCollection(teachers);
+        superInterface.getStudentSession().saveStudent(student);
+    }
+    
+    // EDITED SETTER AND GETTER
+    /**
+     * Picklist DualListModel of courses.
+     * 
+     * @return pickCourses
+     */
+    public DualListModel<Course> getPickCourses() {
+
+        List<Course> source = getCourses();
+        List<Course> target = new ArrayList<>();
+        pickCourses = new DualListModel<>(source, target);
+        return pickCourses;
+    }
+
+    // SETTERS AND GETTERS
+    public void setPickCourses(DualListModel<Course> pickCourses) {
+        this.pickCourses = pickCourses;
     }
 
     public String getFirstName() {
@@ -138,15 +166,4 @@ public class StudentBean {
         this.phone = phone;
     }
 
-    public DualListModel<Course> getPickCourses() {
-
-        List<Course> source = getCourses();
-        List<Course> target = new ArrayList<>();
-        pickCourses = new DualListModel<>(source, target);
-        return pickCourses;
-    }
-
-    public void setPickCourses(DualListModel<Course> pickCourses) {
-        this.pickCourses = pickCourses;
-    }
 }

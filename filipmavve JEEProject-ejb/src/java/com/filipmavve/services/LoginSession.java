@@ -11,8 +11,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
 @Stateless
-public class LoginSession implements LoginSessionLocal{
+public class LoginSession implements LoginSessionLocal {
 
     @PersistenceContext(name = "filipmavve_JEEProject-ejbPU")
     EntityManager em;
@@ -20,8 +21,33 @@ public class LoginSession implements LoginSessionLocal{
     private String email;
     private String password;
     private boolean logedin = false;
+    
+    /**
+     * Checks the DB for login credentials and validates
+     * 
+     * @param email
+     * @param password
+     * @return true or false
+     */
+    @Override
+    public boolean validate(String email, String password) {
+        setLogedin(false);
 
-
+        Query q = em.createQuery("SELECT t FROM Teacher t WHERE t.email = :email AND t.passWord = :pass");
+        q.setParameter("email", email);
+        q.setParameter("pass", password);
+        try {
+            Teacher teacher = (Teacher) q.getSingleResult();
+            if (email.equalsIgnoreCase(teacher.getEmail()) && password.equals(teacher.getPassWord())) {
+                setLogedin(true);
+                return logedin;
+            }
+        } catch (Exception e) {
+            setLogedin(false);
+        }
+        return logedin;
+    }
+    //  SETTERS AND GETTERS
     public boolean isLogedin() {
         return logedin;
     }
@@ -29,7 +55,6 @@ public class LoginSession implements LoginSessionLocal{
     public void setLogedin(boolean logedin) {
         this.logedin = logedin;
     }
-    
 
     public LoginSession() {
     }
@@ -50,22 +75,4 @@ public class LoginSession implements LoginSessionLocal{
         this.password = password;
     }
 
-    @Override
-    public boolean validate(String email, String password) {
-        setLogedin(false);
-
-        Query q = em.createQuery("SELECT t FROM Teacher t WHERE t.email = :email AND t.passWord = :pass");
-        q.setParameter("email", email);
-        q.setParameter("pass", password);
-        try {
-            Teacher teacher = (Teacher) q.getSingleResult();
-            if (email.equalsIgnoreCase(teacher.getEmail()) && password.equals(teacher.getPassWord())) {
-                setLogedin(true);
-                return logedin;
-            }
-        } catch (Exception e) {
-            setLogedin(false);
-        }
-        return logedin;
-    }
 }

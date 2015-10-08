@@ -5,14 +5,12 @@
  */
 package com.filipmavve.services;
 
-import com.filipmavve.domain.Student;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
- *
+ * A collection of all local sessions
+ * 
  * @author Filip
  */
 @Stateless

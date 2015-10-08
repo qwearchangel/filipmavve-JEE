@@ -8,12 +8,11 @@ package com.filipmavve.beans;
 import com.filipmavve.services.SuperInterfaceLocal;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import javax.faces.event.ActionEvent;
 
 /**
- *
+ * The ManagedBean for the login.
+ * 
  * @author Filip
  */
 @ManagedBean
@@ -28,7 +27,11 @@ public class LoginBean {
 
     public LoginBean() {
     }
-
+    /**
+     * Checks the DB for username and password.
+     * 
+     * @return the next page if true.
+     */
     public String checkLoggedin() {
         if (superInterface.getLoginSession().validate(userName, password) == true) {
 
@@ -57,14 +60,6 @@ public class LoginBean {
         this.checkLog = checkLog;
     }
 
-//    public String loginAction() {
-//       return superInterface.getLoginSession().validate(userName, password);
-//    }
-//    
-//    public void loginUser(ActionEvent event) {
-//        System.out.println("Logged in as: " + userName + " on button: " + 
-//                event.getComponent().getId());
-//    }
     public String getUserName() {
         return userName;
     }
